@@ -1,0 +1,21 @@
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= simple_form_for @user, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
+		<%= f.input :email %>
+		<%= f.input :password %>
+		<%= f.input :password_confirmation %>
+		<%= f.input :first_name %>
+		<%= f.input :last_name %>
+		<%= f.input :personal_bio %>
+		<%= f.input :area %>
+	
+	<%= f.submit "Save changes", class: "btn btn-primary" %>
+	<% end %>
+	<div class="gravatar_edit">
+		<%= gravatar_for @user %>
+		<a href="http://gravatar.com/emails">change</a>
+	</div>
+</div>
+</div>

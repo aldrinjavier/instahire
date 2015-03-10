@@ -1,0 +1,211 @@
+<% provide(:title, @user.first_name) %>
+<!-- <div class="row">
+	<aside class="col-md-4">
+		<section class="user_info">
+			<h1>
+				<%= gravatar_for @user %>
+				<%= @user.first_name %>
+				<%= @user.last_name %>
+				<%= @user.last_name %>
+				
+
+			</h1>
+		</section>
+	</aside>
+	
+		<%for education in @user.educations%>
+		Education
+		<li>
+			<%= education.school_name%>
+			<%= education.degree%>
+			<%= education.year_started%>
+			<%= education.year_finished%>
+		</li>
+	
+	<% end %>
+</div> -->
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="row">
+	<div class="col-sm-3"><a href="/users" class="pull-left"><img title="profile image" class="img-circle img-responsive" src="http://www.rlsandbox.com/img/profile.jpg"></a></div>
+	<div class="col-sm-9"><h4><%= @user.fullname %></h4>
+		<h5>Visual, UI, UX Designer</h5>
+		<hr>
+		<p>
+			<a href="#" class="btn btn-success">Follow Rod</a>
+			&nbsp;&nbsp;
+			<a href="#" class="btn btn-info">Send Message</a>
+		</p>
+		<hr> </div>
+
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><!--Side dashboard-->
+
+			<ul class="list-group">
+				<li class="list-group-item text-muted">Basic info</li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Member since</strong></span> <%= @user.created_at.strftime("%d %B, %Y") %></li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Role</strong></span> <%= @user.role %></li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Location</strong></span> <%= @user.area.present? ? @user.location : "Undefined" %></li>
+
+			</ul> 
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+				<div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+			</div>
+
+
+			<ul class="list-group">
+				<li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+			</ul> 
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Social Media</div>
+				<div class="panel-body">
+					<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+				</div>
+			</div>
+
+		</div><!--/col-3-->
+		<div class="col-sm-9">
+
+			<ul class="nav nav-tabs nav-justified" id="myTab">
+				<li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+				<li><a href="#requests" data-toggle="tab">Task Requests <%=@user.task_posts.count%></a></li>
+				<li class="dropdown">
+					<a href="#" data-toggle="dropdown">Appointments<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#tab4primary" data-toggle="tab">Upcoming</a></li>
+						<li><a href="#tab5primary" data-toggle="tab">In Progress</a></li>
+						<li><a href="#tab5primary" data-toggle="tab">Completed</a></li>
+						<li><a href="#tab5primary" data-toggle="tab">Cancelled</a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="profile">
+					<%= @user.client? ? (render 'client_profile') : (render 'worker_profile') %>
+					<hr>
+
+				</div><!--/tab-pane-->
+				<div class="tab-pane" id="requests">
+
+					<h2></h2>
+
+					<ul class="list-group">
+						<li class="list-group-item text-muted">Inbox</li>
+						<%for post in @user.task_posts %>
+						<br>
+						<li class="list-group-item ">
+							<div class="row">
+								<div class="col-md-8"> <%= post.title%> <br></div>
+								<div class="col-md-4 text-right">Offered pay: <span class="pull-right">€<%= post.pay_offer%> <%= post.pay_type%></span></div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-7"> 
+									Posted by <%= @user.fullname %> | Located in <%= @user.location %> <br><br>
+									<%= post.description%><br><br>
+									Subcategory: <%= post.subcategory.name%> | Posted <%= customised_time_ago_in_words(post.created_at) %> ago 
+								</div>
+								<div class="col-md-5">
+									Task's Appointment Details: <br>
+									Start time: <%= post.appointments.last.start_at.strftime("%I:%M %p")%> on <%= post.appointments.last.start_at.strftime("%a, %d %B, %Y") %> <br>
+									
+									End time: <%= post.appointments.last.end_at.strftime("%I:%M %p")%> on <%= post.appointments.last.end_at.strftime("%a, %d %B, %Y") %> <br>
+
+									Duration: <%=  time_in_hour_and_minutes(post.appointments.last.end_at - post.appointments.last.start_at)  %> <br>
+
+									Estimated total earnings: €<%= calculate_earnings(post.appointments.last.end_at - post.appointments.last.start_at, post.pay_offer)  %>
+
+								</div>
+							</div>
+						</li>	
+
+						<% end %>
+
+					</ul> 
+
+				</div><!--/tab-pane-->
+				<div class="tab-pane" id="settings">
+
+
+					<hr>
+					<form class="form" action="##" method="post" id="registrationForm">
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="first_name"><h4>First name</h4></label>
+								<input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="last_name"><h4>Last name</h4></label>
+								<input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="phone"><h4>Phone</h4></label>
+								<input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label for="mobile"><h4>Mobile</h4></label>
+								<input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="email"><h4>Email</h4></label>
+								<input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="email"><h4>Location</h4></label>
+								<input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="password"><h4>Password</h4></label>
+								<input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="password2"><h4>Verify</h4></label>
+								<input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12">
+								<br>
+								<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+								<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div><!--/tab-pane-->
+		</div><!--/tab-content-->
+
+	</div><!--/col-9-->

@@ -1,0 +1,22 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+	<div class="container">
+		<%= link_to "Instahire", root_path, id: "logo" %>
+		<nav>
+			<ul class="nav navbar-nav pull-right">
+				
+				<% if logged_in? %>
+				<li><%= link_to "Edit Education", edit_education_path(current_user) %></li>
+				<li><%= link_to "Post a task", new_task_path %></li>
+				<li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
+				<li><%= link_to "Users", users_path %></li>
+				<li><%= link_to "Profile", current_user %></li>
+				<li><%= link_to "Log out", logout_path, method: "delete" %></li>
+				<% else %>
+				<li><%= link_to "Sign up", signup_path %></li>
+				<li><%= link_to "Log in", login_path %></li>
+				<% end %>
+				
+			</ul>
+		</nav>
+	</div>
+</header>

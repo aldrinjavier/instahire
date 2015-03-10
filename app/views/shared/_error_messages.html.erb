@@ -1,0 +1,8 @@
+<% if object.errors.any? %>
+<div id="error_explanation">
+	<div class="alert alert-danger">
+		<%= image_tag 'error_logo.png', :size => "30x30" %>
+		There were <%= pluralize(object.errors.count, "error") %> in your submission. Please correct the marked fields below.
+	</div>
+</div>
+<% end %>

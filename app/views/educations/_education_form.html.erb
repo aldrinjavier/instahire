@@ -1,0 +1,13 @@
+<fieldset>
+	<div class="panel panel-default sub-panel">
+		<div class="inner-div-panel">
+			<%= f.input :school_name %>
+			<%= f.input :degree %>
+			<%= f.input :year_started, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' } %>
+			<%= f.input :year_finished, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' } %>
+			<%#<%= f.input :_destroy, as: :boolean %>
+			<%= f.input :_destroy, as: :hidden %>
+			<%= link_to "remove", '#', class: "remove_fields" %>
+		</div>
+	</div>
+</fieldset>

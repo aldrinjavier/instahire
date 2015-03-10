@@ -1,0 +1,110 @@
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-default main-panel">
+
+			<div class="panel-heading widen-main-panel-heading">
+				<h3 class="alignleft">Enter task details</h3>
+			</div> 
+
+			<%= simple_form_for @task, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
+			<div class="widen-error">
+				<%= render 'shared/error_messages', object: f.object %>
+			</div>
+			<div class="panel panel-default sub-panel">
+				<div class="panel-heading widen-sub-panel-heading">
+					<h2 class="alignleft">What task do you require?</h2>
+				</div> 
+				<div class="inner-div-panel">
+					<%= f.input :category_id, collection: Category.order(:name), label_method: :name, value_method: :id, label: "Category", include_blank: "Select a category of task" %>
+					<%= f.input :subcategory_id, collection: Category.order(:name), as: :grouped_select, group_method: :subcategories %>
+				</div>
+			</div>
+
+			<div class="panel panel-default sub-panel">
+				<div class="panel-heading widen-sub-panel-heading">
+					<h2 class="alignleft">Tell us about the task...</h2>
+				</div> 
+				<div class="inner-div-panel">
+					<%= f.input :title, placeholder: 'Give a descriptive title for your task'%>
+					<%= f.input :description, placeholder: 'Describe your task here...' %>
+				</div>
+			</div>
+			
+			<div class="panel panel-default sub-panel">
+				<div class="panel-heading widen-sub-panel-heading">
+					<h2 class="alignleft">What budget do you have in mind?</h2>
+				</div> 
+				<div style="text-align: left">
+					<div style="display:inline-block" class="pay-type-label">Pay type</div>
+					<div style="display:inline-block">
+						<ul class="nav nav-pills" id="payTypeTabs">
+							<%= f.input :pay_type, as: :hidden %>
+							<li><a href="#fixed-price-tab" data-toggle="tab">Hire for a fixed price</a></li>
+							<li><a href="#per-hour-tab" data-toggle="tab">Hire per hour</a></li>
+						</ul>
+					</div>
+				</div>
+				<br> 
+				<div class="inner-div-panel">
+
+					<%= f.input :pay_offer, wrapper: :horizontal_input_group do %>
+					<span class="input-group-addon">€</span>
+					<%= f.input_field :pay_offer, as: :integer, class: "form-control" %>
+					<span class="input-group-addon">Euro</span>
+					<% end %>
+				</div>
+			</div>
+
+			<div class="panel panel-default sub-panel">
+				<div class="panel-heading widen-sub-panel-heading">
+					<h2 class="alignleft">Where will your task take place?</h2>
+				</div> 
+				<div class="inner-div-panel">
+					<%= f.input :county_id, collection: County.order(:name), label_method: :name, value_method: :id, label: "County", include_blank: "Select a category of task" %>
+					<%= f.input :area_id, collection: County.order(:name), as: :grouped_select, group_method: :areas %>
+				</div>
+			</div>
+
+			<div class="panel panel-default sub-panel">
+				<div class="panel-heading widen-sub-panel-heading">
+					<h2 class="alignleft">Set an initial appointment for this task...</h2>
+				</div> 
+				<div class="inner-div-panel">
+					<%= field_set_tag ''.html_safe, id: "date_time" do %>
+					<% f.simple_fields_for :appointments do |b| %>
+
+					<%= b.input :start_date, label: "Start date", wrapper: :horizontal_input_group do %>
+
+					<%= b.input_field :start_date, placeholder: 'Set ', class: "form-control date start" %><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					<% end %>
+					<%= b.input :start_time, label: "Start time", wrapper: :horizontal_input_group do %>
+					<%= b.input_field :start_time, placeholder: 'Starting time at', as: :string, class: "form-control time start" %><span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					<% end %>
+
+					<%= b.input :end_date, label: "End date", wrapper: :horizontal_input_group do %>
+					<%= b.input_field :end_date, placeholder: 'End date', class: "form-control date end" %>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					<% end %>
+
+					<%= b.input :end_time, label: "End time", wrapper: :horizontal_input_group do %>
+
+					<%= b.input_field :end_time, placeholder: 'End time', as: :string, class: "form-control time end" %>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					<% end %>
+					<% end %>
+					<% end %>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-3 col-md-offset-9">
+					<%= f.button :submit %>
+				</div>
+			</div>
+			<% end %>
+
+		</div>
+	</div>
+</div>

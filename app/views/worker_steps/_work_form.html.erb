@@ -1,0 +1,10 @@
+<fieldset>
+	<div class="panel panel-default sub-panel">
+		<div class="inner-div-panel">
+			<%= f.input :company_name %>
+			<%= f.input :work_title %>
+			<%= f.input :date_started, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' } %>
+			<%= f.input :date_finished, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' } %>
+		</div>
+	</div>
+</fieldset>

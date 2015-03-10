@@ -1,0 +1,31 @@
+Personal bio
+
+<%= @user.personal_bio %>
+
+Education Experience
+<%for education in @user.educations %>
+<li>
+	<%= education.school_name%>
+	<%= education.degree%>
+	<%= education.year_started%>
+	<%= education.year_finished%>
+</li>
+<% end %>
+
+Work Experience
+<%for work in @user.works %>
+<li>
+	<%= work.company_name %>
+	<%= work.work_title %>
+	<%= work.date_started%>
+	<%= work.date_finished%>
+</li>
+<% end %>
+
+Offered Services
+<%for offered_service in @user.offered_services %>
+<li>
+	<%= offered_service.title %>
+	<%= offered_service.service_description %>
+</li>
+<% end %>
