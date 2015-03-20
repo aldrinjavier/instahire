@@ -12,9 +12,9 @@
 //
 
 //= require jquery
-
+//= require jquery.cookie
 //= require jquery.timepicker.js
-
+//= require bootstrap-switch 
 //= require jquery.datepair.js
 //= require jquery_ujs
 //= require bootstrap

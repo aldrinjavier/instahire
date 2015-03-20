@@ -18,10 +18,8 @@ ActiveRecord::Schema.define(version: 20150304012253) do
     t.string   "status",     limit: 255
     t.datetime "start_at"
     t.datetime "end_at"
-    t.integer  "duration",   limit: 4
-    t.decimal  "earnings",               precision: 10
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "areas", force: :cascade do |t|
@@ -62,20 +60,20 @@ ActiveRecord::Schema.define(version: 20150304012253) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "client_id",      limit: 4
-    t.integer  "worker_id",      limit: 4
-    t.integer  "subcategory_id", limit: 4
-    t.integer  "area_id",        limit: 4
-    t.string   "title",          limit: 255
-    t.text     "description",    limit: 65535
-    t.string   "location",       limit: 255
-    t.string   "post_type",      limit: 255
-    t.string   "pay_type",       limit: 255
-    t.integer  "pay_offer",      limit: 4
-    t.integer  "negotiated_pay", limit: 4
+    t.integer  "client_id",       limit: 4
+    t.integer  "worker_id",       limit: 4
+    t.integer  "subcategory_id",  limit: 4
+    t.integer  "area_id",         limit: 4
+    t.string   "title",           limit: 255
+    t.text     "description",     limit: 65535
+    t.string   "location",        limit: 255
+    t.string   "post_type",       limit: 255
+    t.boolean  "is_pay_per_hour", limit: 1
+    t.integer  "pay_offer",       limit: 4
+    t.integer  "negotiated_pay",  limit: 4
     t.datetime "expiry_date"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "users", force: :cascade do |t|

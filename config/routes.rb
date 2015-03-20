@@ -1,28 +1,34 @@
 Rails.application.routes.draw do
 
-  get 'educations/update'
+  # get 'educations/update'
 
-  get 'educations/edit'
+  # get 'educations/edit'
 
   root 'static_pages#home'
+  # get 'catalogue' => 'catalogue#show'
   get 'about' => 'static_pages#about'
   get 'signup' => 'static_pages#signup'
   get 'registration' => 'users#new'
   get 'login' => 'sessions#new'
+
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
   resources :users do
-
     member do
       get :clients, :workers
     end
   end
-  resources :educations
-  resources :tasks, only: [:new, :create, :destroy]
-  resources :worker_steps
-  resources :client_steps
-  
+  resources :catalogues do
+   collection do
+    match 'search' => 'catalogues#search', via: [:get, :post], as: :search
+  end
+end
+resources :educations
+resources :tasks, only: [:new, :create, :destroy]
+resources :worker_steps
+resources :client_steps
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

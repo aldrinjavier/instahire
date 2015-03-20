@@ -75,7 +75,7 @@
 		<div class="col-sm-9">
 
 			<ul class="nav nav-tabs nav-justified" id="myTab">
-				<li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+				<li class="<%= 'active' if params[:tab] == 'profile' || !params[:tab] %>"><a href="#profile" data-toggle="tab">Profile</a></li>
 				<li><a href="#requests" data-toggle="tab">Task Requests <%=@user.task_posts.count%></a></li>
 				<li class="dropdown">
 					<a href="#" data-toggle="dropdown">Appointments<span class="caret"></span></a>
@@ -89,7 +89,9 @@
 			</ul>
 
 			<div class="tab-content">
-				<div class="tab-pane active" id="profile">
+				
+				<div class="<%= if (params[:tab] == 'profile' || !params[:tab]) then 'tab-pane active'  else 'tab-pane' end%>" id="profile">
+
 					<%= @user.client? ? (render 'client_profile') : (render 'worker_profile') %>
 					<hr>
 
@@ -99,31 +101,37 @@
 					<h2></h2>
 
 					<ul class="list-group">
-						<li class="list-group-item text-muted">Inbox</li>
-						<%for post in @user.task_posts %>
+						<li class="list-group-item text-muted"><div class="tab-pane" id="requests">
+							
+							<!-- /TEST -->
+							
+							<!-- /TEST -->
+						</li>
+						<% @task_posts.each do |post| %>
 						<br>
 						<li class="list-group-item ">
 							<div class="row">
 								<div class="col-md-8"> <%= post.title%> <br></div>
-								<div class="col-md-4 text-right">Offered pay: <span class="pull-right">€<%= post.pay_offer%> <%= post.pay_type%></span></div>
+								<div class="col-md-4 text-right">Offered pay: <span class="pull-right">€<%= post.pay_offer%> <%= pay_type(post.is_pay_per_hour)%></span></div>
 							</div>
 							<br>
 							<div class="row">
 								<div class="col-md-7"> 
-									Posted by <%= @user.fullname %> | Located in <%= @user.location %> <br><br>
+									Posted by <%= post.client.fullname %> | Located in <%= post.client.area.present? ? post.client.location : "Undefined" %> <br><br>
 									<%= post.description%><br><br>
 									Subcategory: <%= post.subcategory.name%> | Posted <%= customised_time_ago_in_words(post.created_at) %> ago 
 								</div>
 								<div class="col-md-5">
 									Task's Appointment Details: <br>
-									Start time: <%= post.appointments.last.start_at.strftime("%I:%M %p")%> on <%= post.appointments.last.start_at.strftime("%a, %d %B, %Y") %> <br>
 									
+									Start time: <%= post.appointments.last.start_at.strftime("%I:%M %p") %> 
+									on <%= post.appointments.last.start_at.strftime("%a, %d %B, %Y") %> <br>
+
 									End time: <%= post.appointments.last.end_at.strftime("%I:%M %p")%> on <%= post.appointments.last.end_at.strftime("%a, %d %B, %Y") %> <br>
 
-									Duration: <%=  time_in_hour_and_minutes(post.appointments.last.end_at - post.appointments.last.start_at)  %> <br>
+									Duration: <%= time_in_hour_and_minutes(post.appointments.last.end_at - post.appointments.last.start_at)  %> <br>
 
 									Estimated total earnings: €<%= calculate_earnings(post.appointments.last.end_at - post.appointments.last.start_at, post.pay_offer)  %>
-
 								</div>
 							</div>
 						</li>	

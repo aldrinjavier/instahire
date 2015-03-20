@@ -10,7 +10,7 @@ class CreateTasks < ActiveRecord::Migration
       t.text :description
       t.string :location
       t.string :post_type #catalogue post or direct post
-      t.string :pay_type #per hour or fixed pay
+      t.boolean :is_pay_per_hour #0 if fixed pay (false), 1 if pay per hour (true)
       t.integer :pay_offer 
       t.integer :negotiated_pay
       t.datetime :expiry_date

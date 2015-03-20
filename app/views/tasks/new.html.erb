@@ -7,10 +7,16 @@
 				<h3 class="alignleft">Enter task details</h3>
 			</div> 
 
+			<%# Form for%>
 			<%= simple_form_for @task, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
+
+			<%# Error message heading%>
 			<div class="widen-error">
 				<%= render 'shared/error_messages', object: f.object %>
 			</div>
+			<%# END: Error message heading%>
+
+			<%# Task category%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
 					<h2 class="alignleft">What task do you require?</h2>
@@ -20,7 +26,9 @@
 					<%= f.input :subcategory_id, collection: Category.order(:name), as: :grouped_select, group_method: :subcategories %>
 				</div>
 			</div>
+			<%# END: Task category%>
 
+			<%# Task title and description%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
 					<h2 class="alignleft">Tell us about the task...</h2>
@@ -30,32 +38,9 @@
 					<%= f.input :description, placeholder: 'Describe your task here...' %>
 				</div>
 			</div>
-			
-			<div class="panel panel-default sub-panel">
-				<div class="panel-heading widen-sub-panel-heading">
-					<h2 class="alignleft">What budget do you have in mind?</h2>
-				</div> 
-				<div style="text-align: left">
-					<div style="display:inline-block" class="pay-type-label">Pay type</div>
-					<div style="display:inline-block">
-						<ul class="nav nav-pills" id="payTypeTabs">
-							<%= f.input :pay_type, as: :hidden %>
-							<li><a href="#fixed-price-tab" data-toggle="tab">Hire for a fixed price</a></li>
-							<li><a href="#per-hour-tab" data-toggle="tab">Hire per hour</a></li>
-						</ul>
-					</div>
-				</div>
-				<br> 
-				<div class="inner-div-panel">
+			<%# END: Task title and description%>
 
-					<%= f.input :pay_offer, wrapper: :horizontal_input_group do %>
-					<span class="input-group-addon">€</span>
-					<%= f.input_field :pay_offer, as: :integer, class: "form-control" %>
-					<span class="input-group-addon">Euro</span>
-					<% end %>
-				</div>
-			</div>
-
+			<%# Task location%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
 					<h2 class="alignleft">Where will your task take place?</h2>
@@ -65,7 +50,32 @@
 					<%= f.input :area_id, collection: County.order(:name), as: :grouped_select, group_method: :areas %>
 				</div>
 			</div>
+			<%# END: Task location%>
 
+			<%# Task pay%>
+			<div class="panel panel-default sub-panel">
+				<div class="panel-heading widen-sub-panel-heading">
+					<h2 class="alignleft">What budget do you have in mind?</h2>
+				</div> 
+				<div style="text-align: left">
+					<div style="display:inline-block" id="pay-type-label">Pay type</div>
+					<div style="display:inline-block"><%= f.input :is_pay_per_hour, label: false, as: :boolean, wrapper: :vertical_radio_and_checkboxes, :input_html => {
+						:id => "switcher"} %>
+					</div>
+				</div>
+
+				<div class="inner-div-panel">
+
+					<%= f.input :pay_offer, wrapper: :horizontal_input_group do %>
+					<span class="input-group-addon">€</span>
+					<%= f.input_field :pay_offer, as: :integer, class: "form-control" %>
+					<span class="input-group-addon">Euro</span>
+					<% end %>
+				</div>
+			</div>
+			<%# END: Task pay%>
+
+			<%# Task appointment%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
 					<h2 class="alignleft">Set an initial appointment for this task...</h2>
@@ -75,35 +85,32 @@
 					<% f.simple_fields_for :appointments do |b| %>
 
 					<%= b.input :start_date, label: "Start date", wrapper: :horizontal_input_group do %>
-
 					<%= b.input_field :start_date, placeholder: 'Set ', class: "form-control date start" %><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 					<% end %>
+
 					<%= b.input :start_time, label: "Start time", wrapper: :horizontal_input_group do %>
 					<%= b.input_field :start_time, placeholder: 'Starting time at', as: :string, class: "form-control time start" %><span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 					<% end %>
 
-					<%= b.input :end_date, label: "End date", wrapper: :horizontal_input_group do %>
-					<%= b.input_field :end_date, placeholder: 'End date', class: "form-control date end" %>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-					<% end %>
-
-					<%= b.input :end_time, label: "End time", wrapper: :horizontal_input_group do %>
-
-					<%= b.input_field :end_time, placeholder: 'End time', as: :string, class: "form-control time end" %>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					<%= b.input :duration, label: "Duration", wrapper: :horizontal_input_group  do %>
+					<%= b.input_field :duration, placeholder: 'Duration', as: :integer, class: "form-control", min: "1", max: "8"%>
+					<span class="input-group-addon" id="hour-addon">Hour(s)</span>
 					<% end %>
 					<% end %>
 					<% end %>
 				</div>
 			</div>
+			<%# END: Task appointment%>
 
+			<%# Submit button%>
 			<div class="row">
-
 				<div class="col-md-3 col-md-offset-9">
 					<%= f.button :submit %>
 				</div>
 			</div>
+			<%# END: Submit button%>
 			<% end %>
+			<%# END: Form for%>
 
 		</div>
 	</div>

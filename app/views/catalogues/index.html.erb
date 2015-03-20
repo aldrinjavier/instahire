@@ -1,0 +1,156 @@
+<% provide(:title, "Catalogue") %>
+
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-4">
+				<%= link_to "Instahire", root_path, id: "logo" %>
+				<div class="input-group">
+					<%= search_form_for @search, url: url_for(controller: 'catalogues', action: 'search'), html: { method: :post }  do |search| %>
+					<%= search.input :title_or_description_cont, label: false %>
+					<span class="input-group-btn">
+						<%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+						<span class="glyphicon glyphicon-search">
+						</span>
+						<% end %>
+					</div><!-- /input-group -->
+					
+				</div><!-- /.col-lg-6 -->
+				<nav>
+					<ul class="nav navbar-nav pull-right">
+
+						<% if logged_in? %>
+						<li><%= link_to "Catalogue", catalogues_path %></li>
+						<li><%= link_to "Edit Education", edit_education_path(current_user) %></li>
+						<li><%= link_to "Post a task", new_task_path %></li>
+						<li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
+						<li><%= link_to "Users", users_path %></li>
+						<li><%= link_to "Profile", current_user %></li>
+						<li><%= link_to "Log out", logout_path, method: "delete" %></li>
+						<% else %>
+						<li><%= link_to "Sign up", signup_path %></li>
+						<li><%= link_to "Log in", login_path %></li>
+						<% end %>
+
+					</ul>
+				</nav>
+			</div><!-- /.row -->
+		</div>
+	</header>
+
+	<div class="row">
+		<div class="col-sm-3">
+			<%= search_form_for @search, :defaults => {:required => false}, url: url_for(controller: 'catalogues', action: 'index') do |f| %>
+
+			<div class="panel panel-default">
+				<div class="panel-heading text-muted">Category <i class="fa fa-link fa-1x"></i>
+				</div>
+				<div class="panel-body">
+					<%= f.input :subcategory_category_id_eq, label: "Category", collection: Category.order(:name), label_method: :name, value_method: :id, include_blank: "Select a category of task" %>
+					<%= f.input :subcategory_id_eq, label: "Subcategory", collection: Category.order(:name), as: :grouped_select, group_method: :subcategories%>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading text-muted">Location <i class="fa fa-link fa-1x"></i>
+				</div>
+				<div class="panel-body">
+					<%= f.input :area_county_id_eq, label: "County", collection: County.order(:name), label_method: :name, value_method: :id, include_blank: "All counties" %>
+					<%= f.input :area_id_eq, label: "Area", collection: County.order(:name), as: :grouped_select, group_method: :areas %></div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading text-muted">Pay offer <i class="fa fa-link fa-1x"></i></div>
+					<div class="panel-body">
+						<%= f.input :is_pay_per_hour_eq_any, as: :select, label: "Pay type" %>
+
+						<div id="pay-type-label-catalogue">Minimum</div>
+						<div class="test">
+							
+							<%= f.input :pay_offer_gteq, label: false, wrapper: :horizontal_input_group do %>
+							<span class="input-group-addon">€</span>
+							<%= f.input_field :pay_offer_gteq, as: :integer, class: "form-control" %>	
+							<% end %>
+						</div>
+						<br><br>
+						<div id="pay-type-label-catalogue">Maximum</div>
+						<div class="test">
+
+							<%= f.input :pay_offer_lteq, label: false, wrapper: :horizontal_input_group do %>
+							<span class="input-group-addon">€</span>
+							<%= f.input_field :pay_offer_lteq, as: :integer, class: "form-control" %>	
+							<% end %>
+						</div>
+
+						<% end %>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-9">
+
+				<ul class="nav nav-tabs id"="myTab">
+					<li class="active"><a href="#public_post" data-toggle="tab">Public posts</a></li>
+					<li class="active"><a href="#global_post" data-toggle="tab">Followers posts</a></li>
+					<span class="pull-right">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								Sort by&nbsp&nbsp<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id= "sort_by" role="menu">
+								<li><%= sort_link(@search, :pay_offer, 'Pay offer', default_order: :desc) %></li>
+								<li><%= sort_link(@search, :created_at, 'Date', default_order: :desc) %></li>
+							</ul>
+						</div>
+					</span>
+				</ul>
+
+
+
+				<div class="tab-content">
+
+					<div class="tab-pane active" id="public_post">
+
+						<% @public_posts.each do |post| %>
+						<br>
+						<li class="list-group-item ">
+							<div class="row">
+								<div class="col-md-8"> <%= post.title%> <br></div>
+								<div class="col-md-4 text-right">Offered pay: <span class="pull-right">€<%= post.pay_offer%> <%= pay_type(post.is_pay_per_hour)%></span></div>
+
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-7"> 
+									Posted by <%= post.client.fullname %> | Located in <%= post.client.area.present? ? post.client.location : "Undefined"  %> <br><br>
+									<%= post.description%><br><br>
+									Subcategory: <%= post.subcategory.name%> | Posted <%= customised_time_ago_in_words(post.created_at) %> ago 
+								</div>
+								<div class="col-md-5">
+									Task's Appointment Details: <br>
+									Start time: <%= post.appointments.last.start_at.strftime("%I:%M %p") %> 
+									on <%= post.appointments.last.start_at.strftime("%a, %d %B, %Y") %> <br>
+
+									End time: <%= post.appointments.last.end_at.strftime("%I:%M %p")%> on <%= post.appointments.last.end_at.strftime("%a, %d %B, %Y") %> <br>
+
+									Duration: <%= time_in_hour_and_minutes(post.appointments.last.end_at - post.appointments.last.start_at)  %> <br>
+
+									Estimated total earnings: €<%= calculate_earnings(post.appointments.last.end_at - post.appointments.last.start_at, post.pay_offer)  %>
+
+								</div>
+							</div>
+						</li>	
+
+						<% end %>
+
+						<hr>
+					</div><!--/tab-pane-->
+
+				</div>
+			</div>
+
+		</div>
+		<% end %>

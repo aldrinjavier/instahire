@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+gem 'jquery-cookie-rails'
+gem 'bootstrap-switch-rails', '~> 3.3.2'
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.2'
 gem 'wicked'
 gem 'jquery-timepicker-rails'
 gem 'bootstrap-datepicker-rails'

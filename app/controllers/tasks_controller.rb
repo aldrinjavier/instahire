@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
 	private
 	def task_params
-		params.require(:task).permit(:category_id, :subcategory_id, :title, :description, :pay_offer, :pay_type, :county_id, :area_id, appointments_attributes: [:id, :start_date, :start_time, :end_date, :end_time])
+		params.require(:task).permit(:category_id, :subcategory_id, :title, :description, :pay_offer, :is_pay_per_hour, :county_id, :area_id, appointments_attributes: [:id, :start_date, :start_time, :duration])
 	end
 
 end

@@ -6,8 +6,6 @@ class CreateAppointments < ActiveRecord::Migration
 			t.string :status
 			t.datetime :start_at
 			t.datetime :end_at
-			t.integer :duration
-			t.decimal :earnings
 			
 			t.timestamps null: false
 		end

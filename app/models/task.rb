@@ -17,13 +17,32 @@ class Task < ActiveRecord::Base
 	accepts_nested_attributes_for :appointments
 
 	#VALIDATIONS
-	validates :category_id, presence: {message: "Please enter a category." }
-	validates :subcategory_id, presence: {message: "Please enter a subcategory." }
+	validates :category_id, presence: {message: "Please enter a category." } 
+	validates :subcategory_id, presence: {message: "Please enter a subcategory." } , if: :is_category_present 
+	validates :title, presence: {message: "Please enter a title." }
+	validates :description, presence: {message: "Please enter a description." }
+	validates :pay_offer, presence: {message: "Please enter a value." }
+	validates :county_id, presence: {message: "Please enter a county." }
+	validates :area_id, presence: {message: "Please enter an area." }
 	default_scope -> { order('created_at DESC') }
-	# validates :title, presence: {message: "Please enter a title." }
-	# validates :description, presence: {message: "Please enter a description." }
-	# validates :pay_offer, presence: {message: "Please enter a value." }
-	# validates :county_id, presence: {message: "Please enter a county." }
-	# validates :area_id, presence: {message: "Please enter an area." }
+
+	def is_category_present
+		@category_id.present?
+	end
+
+
+		# validate :is_date_nil
+
+	# def is_date_nil
+	# 	if @start_date.blank? && @end_date.blank? && @start_time.present? && @end_time.present?
+	# 		errors.add(:start_date,  "Can't leave blank")
+	# 		errors.add(:end_date,  "Can't leave blank")
+	# 	end
+
+	# 	if @start_time.blank? && @end_time.blank? && @start_date.present? && @end_date.present?
+	# 		errors.add(:start_time,  "Can't leave blank")
+	# 		errors.add(:end_time,  "Can't leave blank")
+	# 	end
+	# end
 	
 end

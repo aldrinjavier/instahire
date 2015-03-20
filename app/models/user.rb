@@ -43,6 +43,11 @@ class User < ActiveRecord::Base
 	# Returns a random token.
 	# Class method
 
+	HASH_NAME = {
+		"Pay per hour" => "Pay per hour",
+		"Fixed pay" => "Fixed pay",
+	}
+
 	
 	def fullname
 		"#{first_name} #{last_name}"

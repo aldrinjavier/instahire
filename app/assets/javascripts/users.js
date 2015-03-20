@@ -27,6 +27,29 @@ $(document).ready(function() {
 	$("#user_county_id").change(function(){
 		process_dropdown();
 	});
+
+	// when value in dropdown changed, post
+	$('#q_subcategory_id_eq').change(function() {
+		this.form.submit();
+	});
+
+	$('#q_subcategory_category_id_eq').change(function() {
+		this.form.submit();
+	});
+
+	
+
+
+	// $("#q_subcategory_name_cont").change(function(){
+
+	// 	if( $("#q_subcategory_name_cont").val() != ""){
+	// 		string_value = $("#q_subcategory_name_cont :selected").text();
+	// 		value = $("#q_subcategory_name_cont :selected").val();
+	// 		console.log($("#q_subcategory_name_cont :selected").val(string_value));
+	// 	}
+	// });
+
+
 });
 
 

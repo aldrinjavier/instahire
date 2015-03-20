@@ -42,11 +42,20 @@ module ApplicationHelper
 	end
 
 	def customised_time_ago_in_words(from_time)
-		#It will have week. ie 1 week ago, 2 weeks ago, and 3 weeks ago.
+		#It will have week. ie 1 week ago, 2 weeks ago, and 3 weeks ago, 
+		#since the default time_ago_in_words function does not work this way
 		to_time   = Time.now
 		weeks_ago = ((to_time - from_time)/1.week).abs
 		[nil, "1 week", "2 weeks", "3 weeks"][weeks_ago] || 
 		distance_of_time_in_words(from_time, to_time)
+	end
+
+	def pay_type(type)  
+		if type
+			"Pay per hour"
+		else
+			"Fixed pay"
+		end
 	end
 
 	# def link_to_add_fields(name, f, association, cssClass, title)  

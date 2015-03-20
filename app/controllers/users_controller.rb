@@ -29,17 +29,25 @@ class UsersController < ApplicationController
 			# 	flash[:success] = "Welcome to Instahire! You are now a registered worker."
 			# end
 			if @user.client == true 
-				redirect_to customer_steps_path
+				redirect_to client_steps_path
 			else
-				redirect_to user_steps_path
+				redirect_to worker_steps_path
 			end
 		else
 			render 'new'
 		end
 	end
 
+	def search
+		show
+		render :show
+	end
+
 	def show
-		@user = User.find(params[:id])
+		@user = current_user
+		# @search = @user.task_posts.search(params[:q])
+		# @search = Task.all.search(params[:q])
+		@task_posts = @user.task_posts
 	end
 
 	def update
