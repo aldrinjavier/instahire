@@ -126,12 +126,13 @@
 									
 									Start time: <%= post.appointments.last.start_at.strftime("%I:%M %p") %> 
 									on <%= post.appointments.last.start_at.strftime("%a, %d %B, %Y") %> <br>
-
+									<% if post.is_pay_per_hour %>
 									End time: <%= post.appointments.last.end_at.strftime("%I:%M %p")%> on <%= post.appointments.last.end_at.strftime("%a, %d %B, %Y") %> <br>
 
 									Duration: <%= time_in_hour_and_minutes(post.appointments.last.end_at - post.appointments.last.start_at)  %> <br>
 
 									Estimated total earnings: €<%= calculate_earnings(post.appointments.last.end_at - post.appointments.last.start_at, post.pay_offer)  %>
+									<% end %>
 								</div>
 							</div>
 						</li>	

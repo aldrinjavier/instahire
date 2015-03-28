@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
 	$('#payTypeTabs a[href="#fixed-price-tab"]').tab('show');
@@ -71,11 +70,6 @@ $(document).ready(function() {
 		process_category_dropdown();
 	});
 	/******END: category and subcategory dropdown*******/
-
-	//
-
-
-	//
 
 	/*****location dropdown*****/
 	task_areas = $("#task_area_id").html(); 
@@ -249,17 +243,5 @@ $(document).ready(function() {
 		/******END: Pay type toggle in Create task form*******/
 		/******END: Bootstrap switch*******/
 
-		
-		/******Update query filter if form fields changed*******/
-		$('select#q_is_pay_per_hour_eq_any').change(function() {
-			this.form.submit();
-		});
-
-		// $('#q_pay_offer_gteq, #q_pay_offer_lteq').change(function() {
-		// 	this.form.submit();
-		// });
-		/******END: Update query filter if form fields changed*******/
-
-
-	});
+});
 

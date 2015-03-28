@@ -19,16 +19,16 @@ class Appointment < ActiveRecord::Base
 
 	def is_date_nil
 		if @start_date.blank? && @start_time.blank?
-			errors.add(:start_date,  "Can't leave blank")
-			errors.add(:start_time,  "Can't leave blank")
+			errors.add(:start_date,  "Start date can't be blank")
+			errors.add(:start_time,  "Start time can't be blank")
 		end
 
 		if @start_date.blank? && @start_time.present?
-			errors.add(:start_date,  "Can't leave blank")
+			errors.add(:start_date,  "Start date can't be blank")
 		end
 
 		if  @start_time.blank? && @start_date.present?
-			errors.add(:start_time,  "Can't leave blank")
+			errors.add(:start_time,  "Start time can't be blank")
 		end
 	end
 

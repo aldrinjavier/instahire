@@ -2,6 +2,7 @@ class Task < ActiveRecord::Base
 	#VIRTUAL ATTRIBUTES
 	attr_accessor :category_id
 	attr_accessor :county_id
+	cattr_accessor :current
 
 	#RELATIONSHIPS
 	belongs_to :client, class_name: "User"
@@ -17,9 +18,10 @@ class Task < ActiveRecord::Base
 	accepts_nested_attributes_for :appointments
 
 	#VALIDATIONS
-	validates :category_id, presence: {message: "Please enter a category." } 
-	validates :subcategory_id, presence: {message: "Please enter a subcategory." } , if: :is_category_present 
-	validates :title, presence: {message: "Please enter a title." }
+	validates :category_id, presence: {message: "Please select a category." } 
+	validates :subcategory_id, presence: {message: "Please select a subcategory." }, if: :is_category_present 
+	validates :title, presence: {message: "Please enter a title." },
+	length: {minimum: 10}
 	validates :description, presence: {message: "Please enter a description." }
 	validates :pay_offer, presence: {message: "Please enter a value." }
 	validates :county_id, presence: {message: "Please enter a county." }
@@ -29,6 +31,11 @@ class Task < ActiveRecord::Base
 	def is_category_present
 		@category_id.present?
 	end
+	
+	def hello
+		return "hi"  
+	end
+	
 
 
 		# validate :is_date_nil

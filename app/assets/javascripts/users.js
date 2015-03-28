@@ -28,15 +28,6 @@ $(document).ready(function() {
 		process_dropdown();
 	});
 
-	// when value in dropdown changed, post
-	$('#q_subcategory_id_eq').change(function() {
-		this.form.submit();
-	});
-
-	$('#q_subcategory_category_id_eq').change(function() {
-		this.form.submit();
-	});
-
 	
 
 

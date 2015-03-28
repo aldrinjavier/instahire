@@ -19,7 +19,7 @@
 					<ul class="nav navbar-nav pull-right">
 
 						<% if logged_in? %>
-						<li><%= link_to "Catalogue", search_catalogues_path %></li>
+						<li><%= link_to "Catalogue", "search_catalogues_path" %></li>
 						<li><%= link_to "Edit Education", edit_education_path(current_user) %></li>
 						<li><%= link_to "Post a task", new_task_path %></li>
 						<li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>

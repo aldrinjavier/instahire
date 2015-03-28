@@ -6,7 +6,7 @@ class CataloguesController < ApplicationController
 	end
 
 	def index
-		@public_posts = @search.result.includes(:subcategory)
+		@public_posts = @search.result
 	end
 
 end

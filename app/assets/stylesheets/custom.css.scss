@@ -245,13 +245,13 @@ margin-left: -100px;
 }
 
 .test{
-	margin-left: -15px;
-	margin-right: -190px;
-	margin-top: -10px;
-	margin-bottom: 25px;
+margin-left: -15px;
+margin-right: -200px;
+margin-top: -10px;
+margin-bottom: 25px;
 }
 
-#pay-type-label-catalogue{
+.pay-type-label-catalogue{
 padding: 0px 40px -40px 0px;
 color: #333333;
 font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -331,3 +331,17 @@ float: left;
 float: right;
 }
 
+.btn-circle {
+width: 30px;
+margin-top: 10px;
+height: 30px;
+text-align: center;
+padding: 6px 0;
+font-size: 12px;
+line-height: 1.428571429;
+border-radius: 15px;
+}
+
+#refresh-button{
+	margin-top: 20px;
+}

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   def set_global_search_variable
    @search = Task.all.search(params[:q])
+   Task.current = @search
  end
 
  protect_from_forgery with: :exception
