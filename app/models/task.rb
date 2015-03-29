@@ -17,6 +17,8 @@ class Task < ActiveRecord::Base
 	has_many :appointments, :dependent => :destroy
 	accepts_nested_attributes_for :appointments
 
+	has_many :responses, dependent: :destroy
+
 	#VALIDATIONS
 	validates :category_id, presence: {message: "Please select a category." } 
 	validates :subcategory_id, presence: {message: "Please select a subcategory." }, if: :is_category_present 

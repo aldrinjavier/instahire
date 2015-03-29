@@ -15,6 +15,11 @@ class TasksController < ApplicationController
 		end
 	end
 
+	def show
+		@task = Task.find(params[:id])
+		@responses = @task.responses.all
+	end
+
 	private
 	def task_params
 		params.require(:task).permit(:category_id, :subcategory_id, :title, :description, :pay_offer, :is_pay_per_hour, :county_id, :area_id, appointments_attributes: [:id, :start_date, :start_time, :duration])

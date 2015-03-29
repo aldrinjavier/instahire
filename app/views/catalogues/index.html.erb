@@ -153,9 +153,8 @@
 					<br>
 					<li class="list-group-item ">
 						<div class="row">
-							<div class="col-md-8"> <%= post.title%> <br></div>
+							<div class="col-md-8"> <%= link_to post.title, task_path(post.id) %> <br></div>
 							<div class="col-md-4 text-right">Offered pay: <span class="pull-right">€<%= post.pay_offer%> <%= pay_type(post.is_pay_per_hour)%></span></div>
-
 						</div>
 						<br>
 						<div class="row">

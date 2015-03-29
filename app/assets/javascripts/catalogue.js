@@ -305,7 +305,7 @@ function f_process_category_dropdown(){
 	$("#filter-result-display").text(filter_result_builder);
 	/******END: filter result string builder*******/
 
-	//set min and max field to 10, default min value is 10 (no need to set)
+	//set min and max field to 10, default min value is 10 (so no need to set)
 	if(remove_count($("#q_is_pay_per_hour_eq_any :selected").text()) == "Pay per hour"){
 		if($('#q_pay_offer_gteq').val() == ""){
 			$('#q_pay_offer_gteq').val(10);
@@ -349,6 +349,4 @@ function f_process_category_dropdown(){
 			$(this).val($('#q_pay_offer_gteq').val());
 		}
 	});
-
-
 });

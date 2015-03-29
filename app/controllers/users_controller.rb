@@ -38,11 +38,6 @@ class UsersController < ApplicationController
 		end
 	end
 
-	def search
-		show
-		render :show
-	end
-
 	def show
 		@user = current_user
 		# @search = @user.task_posts.search(params[:q])

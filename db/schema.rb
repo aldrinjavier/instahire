@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304012253) do
+ActiveRecord::Schema.define(version: 20150328203423) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "task_id",    limit: 4
@@ -54,9 +54,28 @@ ActiveRecord::Schema.define(version: 20150304012253) do
     t.datetime "updated_at",                        null: false
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.integer  "task_id",       limit: 4
+    t.integer  "user_id",       limit: 4
+    t.boolean  "is_comment",    limit: 1
+    t.boolean  "is_accepted",   limit: 1,   default: false
+    t.integer  "negotiate_pay", limit: 4
+    t.string   "comment_text",  limit: 255
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
   create_table "subcategories", force: :cascade do |t|
     t.integer "category_id", limit: 4
     t.string  "name",        limit: 255
+  end
+
+  create_table "subcomments", force: :cascade do |t|
+    t.integer  "response_id",  limit: 4
+    t.integer  "user_id",      limit: 4
+    t.string   "comment_text", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "tasks", force: :cascade do |t|

@@ -1,0 +1,46 @@
+Title: <%= @task.title%>
+<br>
+Full name: <%= @task.client.fullname%>
+<br>
+Area: <%= @task.area.name%>
+<br>
+County: <%= @task.area.county.name%>
+<br>
+Subcategory: <%= @task.subcategory.name%>
+<br>
+Category: <%= @task.subcategory.category.name%>
+<br>
+Description: <%= @task.description%>
+<br>
+<br>
+Upcoming Appointment:
+<%= @task.appointments.first.start_at.strftime("%I:%M %p")%>
+<%= @task.appointments.first.start_at.strftime("%a, %d %B, %Y")%>
+<br>
+Past Appointments:
+<br>
+<br>
+Questions and negotiations:
+<div class="row">
+	<div class="col-md-5">
+		<%= simple_form_for([@task, Response.new]) do |f| %>
+		<%= f.input :comment_text, as: :text, input_html: {rows: 5}, label: false %>
+		<div class="row"> 
+			<div class="col-md-4 col-md-offset-8">
+				<%= f.button :submit %>
+			</div>
+		</div>
+		<% end %>
+		<br>
+
+		<% @responses.each do |r|%><br>
+		<%= "#{r.user.fullname} | #{customised_time_ago_in_words(r.created_at)} ago" %>
+		<button style="width:20%" type="button" class="btn-xs btn-default pull-right" aria-label="Left Align">Reply</button>&nbsp
+		<button style="width:20%" type="button" class="btn-xs btn-default pull-right" aria-label="Left Align">Accept</button><br>
+		<%= r.comment_text %><br>
+		<br> 
+
+		<% end %>
+	</div>
+</div>
+

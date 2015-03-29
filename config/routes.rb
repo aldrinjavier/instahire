@@ -24,8 +24,10 @@ Rails.application.routes.draw do
     match 'search' => 'catalogues#search', via: [:get, :post], as: :search
   end
 end
+resources :tasks do
+  resources :responses 
+end
 resources :educations
-resources :tasks, only: [:new, :create, :destroy]
 resources :worker_steps
 resources :client_steps
 
