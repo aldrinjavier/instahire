@@ -1,0 +1,19 @@
+<!-- Form for updating is_accepted attribute -->
+<%= simple_form_for response, remote: true do |f| %>
+<%= f.input :is_accepted, as: :hidden %>
+<%= f.button :submit %>
+
+<% if !response.is_accepted%>
+<button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Accept</button>
+<% else%>
+<button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Cancel</button>
+<% end %>
+
+<% end %>
+<!--END: form -->
+
+
+<%= "#{response.user.fullname} | #{customised_time_ago_in_words(response.created_at)} ago" %>
+<br>
+<%= response.comment_text %><br>
+<br> 

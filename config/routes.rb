@@ -27,6 +27,7 @@ end
 resources :tasks do
   resources :responses 
 end
+resources :responses 
 resources :educations
 resources :worker_steps
 resources :client_steps

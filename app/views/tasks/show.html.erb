@@ -23,7 +23,7 @@ Past Appointments:
 Questions and negotiations:
 <div class="row">
 	<div class="col-md-5">
-		<%= simple_form_for([@task, Response.new]) do |f| %>
+		<%= simple_form_for([@task, Response.new], remote: true) do |f| %>
 		<%= f.input :comment_text, as: :text, input_html: {rows: 5}, label: false %>
 		<div class="row"> 
 			<div class="col-md-4 col-md-offset-8">
@@ -32,15 +32,9 @@ Questions and negotiations:
 		</div>
 		<% end %>
 		<br>
-
-		<% @responses.each do |r|%><br>
-		<%= "#{r.user.fullname} | #{customised_time_ago_in_words(r.created_at)} ago" %>
-		<button style="width:20%" type="button" class="btn-xs btn-default pull-right" aria-label="Left Align">Reply</button>&nbsp
-		<button style="width:20%" type="button" class="btn-xs btn-default pull-right" aria-label="Left Align">Accept</button><br>
-		<%= r.comment_text %><br>
-		<br> 
-
-		<% end %>
+		<div id="comments">
+			<%= render @responses %>
+		</div>
 	</div>
 </div>
 

@@ -1,0 +1,5 @@
+//remove text in the text box after submission of response
+$('#response_comment_text').val('');
+//prepend the latest response to the array of response
+$('#comments').prepend('<%= j render(@response) %>');
+$('#edit_response_<%= @response.id %>').submitOnClick();
