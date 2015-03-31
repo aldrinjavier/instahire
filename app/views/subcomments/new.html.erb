@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col-md-3">
+		<%= render @subcomments %>
+		<br>
+		<%= simple_form_for @subcomment do |f| %>
+		<%= f.input :comment_text, as: :text, input_html: {rows: 1} %>
+		<%= f.input :response_id, as: :hidden %>
+		<%= f.button :submit %>
+		<% end %>
+	</div>
+</div>

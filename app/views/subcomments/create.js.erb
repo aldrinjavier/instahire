@@ -1,0 +1,9 @@
+//clear subcomment form comment text
+$('#subcomment_comment_text'+ $.cookie("subcomment_form_id")).val('');
+//retrieve subcomment form id that was stored on a cookie when reply link was clicked
+//then use it to append the newly added subcomment to the right form
+$('#response_subcomments'+ $.cookie("subcomment_form_id")).append('<%= j render(@subcomment) %>');
+// alert($.cookie("subcomment_id"));
+// $('#new_subcomment').click(function(){
+// 	alert("hello");
+// });

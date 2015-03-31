@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328203423) do
+ActiveRecord::Schema.define(version: 20150330175611) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "task_id",    limit: 4

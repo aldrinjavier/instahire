@@ -4,16 +4,24 @@
 <%= f.button :submit %>
 
 <% if !response.is_accepted%>
+<!-- accept button -->
 <button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Accept</button>
 <% else%>
+<!-- cancel button -->
 <button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Cancel</button>
 <% end %>
 
 <% end %>
 <!--END: form -->
 
-
+<!-- name and time posted -->
 <%= "#{response.user.fullname} | #{customised_time_ago_in_words(response.created_at)} ago" %>
 <br>
-<%= response.comment_text %><br>
+<!-- subcomment's comment text -->
+<%= response.comment_text %>
+<br>
+<!-- reply button -->
+<%= link_to "Reply", new_subcomment_path(:response_id => response.id), class: "subcomment_link", id: "new_subcomment#{response.id}", remote: true %>
+
 <br> 
+<br>

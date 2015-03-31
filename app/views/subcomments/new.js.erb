@@ -1,0 +1,17 @@
+// $('.new_subcomment').hide().after('<%= j render("form")%>');
+
+// alert($('#new_subcomment').attr('id'));
+// alert ($('div').data('url');
+// alert($('a').data('url'));
+// $("a.new_subcomment").click(function(){
+// 	// $(this).hide().after('<%= j render("form")%>');
+// 	// alert($(this).attr('id'));
+// });
+
+// alert( $.cookie("test") )
+// var $.cookie("test")
+
+//hide reply link then show subcomment form
+
+$("#new_subcomment"+$.cookie("subcomment_form_id")).hide().after('<%= j render("form")%>');
+$("#new_subcomment<%= @subcomment.id %>").submitSubcomment();
