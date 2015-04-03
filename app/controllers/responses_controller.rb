@@ -3,6 +3,7 @@ class ResponsesController < ApplicationController
 		@task = Task.find(params[:task_id])
 		@response = @task.responses.create(response_params)
 		@response.user_id = current_user.id
+		@response.is_comment = params[:is_comment]
 		@response.save
 		respond_to do |format|
 			format.html { redirect_to @task }
@@ -22,7 +23,7 @@ class ResponsesController < ApplicationController
 
 	private
 	def response_params
-		params.require(:response).permit(:comment_text, :negotiate_pay, :is_accepted)
+		params.require(:response).permit(:comment_text, :negotiate_pay, :is_accepted, :is_comment)
 	end
 
 end

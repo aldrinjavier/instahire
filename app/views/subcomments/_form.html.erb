@@ -1,13 +1,15 @@
-<div class="row">
-	<div class="col-md-6">
-		<%= content_tag "div", id: "response_subcomments#{@response.id}" do %>
-		<%= render @subcomments %> 
-		<% end %>
-		<%= simple_form_for @subcomment, remote: true do |f| %>
-		<%= f.input :comment_text, label: false, as: :text, input_html: {rows: 1, :id => "subcomment_comment_text#{@response.id}"} %>
-		<%= f.input :response_id, as: :hidden %>
-		<%= f.button :submit %>
-		
-		<%end%>
-	</div>
+<%= content_tag "div", id: "response-comment-section#{@response.id}", class: "row response-comment-section" do %>
+<div class="col-md-6">
+	<%= content_tag "div", id: "response_subcomments#{@response.id}" do %>
+	<%= render @subcomments %> 
+	<% end %>
+	<%= simple_form_for @subcomment, remote: true do |f| %>
+
+	<%= f.input :comment_text, label: false, as: :text, input_html: {rows: 1, :id => "subcomment_comment_text#{@response.id}"} %>
+	<%= f.input :response_id, as: :hidden %>
+
+	<%= f.button :submit, class: "create_buttonx", id: "create_buttonx#{@response.id}" %>
+
+	<%end%>
 </div>
+<%end%>

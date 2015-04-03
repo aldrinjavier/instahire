@@ -23,5 +23,7 @@
 <!-- reply button -->
 <%= link_to "Reply", new_subcomment_path(:response_id => response.id), class: "subcomment_link", id: "new_subcomment#{response.id}", remote: true %>
 
+<%= link_to "Hide comments", 'javascript:;', class: "hide_subcomment_link", id: "hide_subcomment_formx#{response.id}"%>
+
 <br> 
 <br>

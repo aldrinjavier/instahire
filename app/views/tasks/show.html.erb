@@ -23,11 +23,21 @@ Past Appointments:
 Questions and negotiations:
 <div class="row">
 	<div class="col-md-5">
-		<%= simple_form_for([@task, Response.new], remote: true) do |f| %>
-		<%= f.input :comment_text, as: :text, input_html: {rows: 5}, label: false %>
-		<div class="row"> 
-			<div class="col-md-4 col-md-offset-8">
-				<%= f.button :submit %>
+
+		<%= link_to "Close", task_path(:is_comment => "false"), class: "btn btn-success btn-lg", id: "close-collapse", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %>
+		<%= link_to "Ask a question", task_path(:is_comment => true), class: "btn btn-success btn-lg", id: "ask-question", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %>
+		<%= link_to "Negotiate pay", task_path(:is_comment => false), class: "btn btn-success btn-lg pull-right", id: "negotiate", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %>
+		
+		<br>
+		<div id="response-form" class="collapse">
+			<%= simple_form_for([@task, Response.new]) do |f| %>
+			<%= f.input :is_comment, as: :hidden %>
+			<%= f.input :negotiate_pay, label: false %>
+			<%= f.input :comment_text, as: :text, input_html: {rows: 3}, label: false %>
+			<div class="row"> 
+				<div class="col-md-4 col-md-offset-8">
+					<%= f.button :submit %>
+				</div>
 			</div>
 		</div>
 		<% end %>
