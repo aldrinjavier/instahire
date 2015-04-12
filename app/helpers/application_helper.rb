@@ -58,6 +58,18 @@ module ApplicationHelper
 		end
 	end
 
+	def object_count(count)
+		if count==7
+			count-1
+		else
+			count
+		end
+	end
+
+	# def end_at(start, duration)
+	# 	return start + duration*60*60
+	# end
+
 	# def test(s)
 	# 	@public_posts =s
 	# end

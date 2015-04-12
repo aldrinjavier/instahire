@@ -3,13 +3,16 @@
 	<%= content_tag "div", id: "response_subcomments#{@response.id}" do %>
 	<%= render @subcomments %> 
 	<% end %>
-	<%= simple_form_for @subcomment, remote: true do |f| %>
 
-	<%= f.input :comment_text, label: false, as: :text, input_html: {rows: 1, :id => "subcomment_comment_text#{@response.id}"} %>
+	<%# only the client of this task and the worker who made this response can comment %>
+	<% if current_user?(@subcomment.response.user) || current_user?(@subcomment.response.task.client) %>
+	<%= simple_form_for @subcomment, remote: true do |f| %>
+	<%= f.input :comment_text, label: false, as: :text, input_html: {rows: 1, :id => "subcomment_comment_text#{@response.id}", class: "subcomment_comment_text"} %>
+	<p id="subcomment_text_hint<%= @response.id%>"class="help-block">enter at least 15 characters</p>
 	<%= f.input :response_id, as: :hidden %>
 
 	<%= f.button :submit, class: "create_buttonx", id: "create_buttonx#{@response.id}" %>
-
+	<%end%>
 	<%end%>
 </div>
 <%end%>

@@ -53,11 +53,9 @@ text-align: center;
 }
 h2 {
 font-size: 1.2em;
-
-margin-top: 10px;
+margin-top: 0px;
 text-align: center;
-font-weight: normal;
-color: $gray-light;
+color: #F8F8FF;
 }
 h3 {
 font-size: 1.4em;
@@ -228,21 +226,39 @@ margin-right: 0;
 /* PANELS
 */
 .main-panel{
-padding: 0px 100px 10px 100px;
+padding: 20px 40px 20px 40px;
+background-color: #f0f0f0;
+border-style: solid;
+border-width: 3px;
+}
+
+.panel > .panel-heading {
+background-color: #858d93;
+height: 40px;
 }
 
 .sub-panel{
 
 /*padding: 30px 130px 20px 0px;*/
-background-color: #f9fcf2;
+background-color: #FFFFF0;
 padding-top: 25px;
 padding-right: 80px;
 padding-bottom: 25px;
 padding-left: 25px;
+border-style: solid;
+border-width: 3px;
 }
 .inner-div-panel{
-margin-left: -100px;
+margin-left: -160px;
 }
+
+.panel-default > .panel-heading .badge {
+    background-color: #f0f0f0;
+    color: #848484;
+}
+
+
+
 
 .test{
 margin-left: -15px;
@@ -274,10 +290,6 @@ margin-bottom: 20px;
 margin-top: -25px;
 }
 
-.panel > .panel-heading {
-background-color: #ddeff7;
-height: 50px;
-}
 
 /* 
 */
@@ -285,9 +297,8 @@ height: 50px;
 /*  ERROR HEADER
 */
 .widen-error{
-margin-left: -100px;
-margin-right: -100px;
-
+margin-left: -40px;
+margin-right: -40px;
 }
 
 
@@ -316,7 +327,7 @@ padding: 0px 0px 0px 32px;
 }
 
 #pay-type-label{
-padding: 0px 40px 0px 50px;
+padding: 0px 45px 0px 56px;
 color: #333333;
 font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 font-size: 14px;
@@ -343,5 +354,9 @@ border-radius: 15px;
 }
 
 #refresh-button{
-	margin-top: 20px;
+margin-top: 20px;
+}
+
+#negotiation_pay_hint{
+margin-left: 15px;
 }

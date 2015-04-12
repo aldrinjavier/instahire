@@ -1,4 +1,13 @@
 //hide reply link 
-$("#new_subcomment"+$.cookie("subcomment_form_id")).hide()
+$("#reply_and_replies_count"+$.cookie("subcomment_form_id")).hide()
+
 //then show hide-comments link, subcomments, and the subcomment form
 $("#hide_subcomment_formx"+$.cookie("subcomment_form_id")).show().after('<%= j render("form")%>');
+
+//set the create-subcomment-button to be disabled
+$('.create_buttonx').prop("disabled",true);
+
+// hide hide_subcoment_form link if the count is 0
+<% if @subcomment.response.subcomments.all.count == 0 %>
+$("#hide_subcomment_formx"+$.cookie("subcomment_form_id")).hide()
+<% end %>

@@ -3,10 +3,10 @@
 	<div class="col-md-8 col-md-offset-2">
 		<div class="panel panel-default main-panel">
 
-			<div class="panel-heading widen-main-panel-heading">
+			<!-- <div class="panel-heading widen-main-panel-heading">
 				<h3 class="alignleft">Enter task details</h3>
 			</div> 
-
+ -->
 			<%# Form for%>
 			<%= simple_form_for @task, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
 
@@ -19,10 +19,10 @@
 			<%# Task category%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
-					<h2 class="alignleft">What task do you require?</h2>
+					<h2 class="alignleft"><span class="badge badge-success">1</span>&nbsp &nbsp What task do you require?</h2>
 				</div> 
 				<div class="inner-div-panel">
-					<%= f.input :category_id, collection: Category.order(:name), label_method: :name, value_method: :id, label: "Category", include_blank: "Select a category of task" %>
+					<%= f.input :category_id, collection: Category.order(:name), label_method: :name, value_method: :id, label: "Category", include_blank: "Select a category" %>
 					<%= f.input :subcategory_id, collection: Category.order(:name), as: :grouped_select, group_method: :subcategories %>
 				</div>
 			</div>
@@ -31,11 +31,11 @@
 			<%# Task title and description%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
-					<h2 class="alignleft">Tell us about the task...</h2>
+					<h2 class="alignleft"><span class="badge badge-success">2</span>&nbsp &nbsp Tell us about this task...</h2>
 				</div> 
 				<div class="inner-div-panel">
 					<%= f.input :title, placeholder: 'Give a descriptive title for your task'%>
-					<%= f.input :description, placeholder: 'Describe your task here...' %>
+					<%= f.input :description, placeholder: 'Describe your task' %>
 				</div>
 			</div>
 			<%# END: Task title and description%>
@@ -43,10 +43,10 @@
 			<%# Task location%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
-					<h2 class="alignleft">Where will your task take place?</h2>
+					<h2 class="alignleft"><span class="badge badge-success">3</span>&nbsp &nbsp Where will your task take place?</h2>
 				</div> 
 				<div class="inner-div-panel">
-					<%= f.input :county_id, collection: County.order(:name), label_method: :name, value_method: :id, label: "County", include_blank: "Select a category of task" %>
+					<%= f.input :county_id, collection: County.order(:name), label_method: :name, value_method: :id, label: "County", include_blank: "Select a county" %>
 					<%= f.input :area_id, collection: County.order(:name), as: :grouped_select, group_method: :areas %>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 			<%# Task pay%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
-					<h2 class="alignleft">What budget do you have in mind?</h2>
+					<h2 class="alignleft"><span class="badge badge-success">4</span>&nbsp &nbsp What budget do you have in mind?</h2>
 				</div> 
 				<div style="text-align: left">
 					<div style="display:inline-block" id="pay-type-label">Pay type</div>
@@ -68,7 +68,7 @@
 
 					<%= f.input :pay_offer, wrapper: :horizontal_input_group do %>
 					<span class="input-group-addon">€</span>
-					<%= f.input_field :pay_offer, as: :integer, class: "form-control" %>
+					<%= f.input_field :pay_offer, as: :integer, class: "form-control", min: 20 %>
 					<span class="input-group-addon">Euro</span>
 					<% end %>
 				</div>
@@ -78,7 +78,7 @@
 			<%# Task appointment%>
 			<div class="panel panel-default sub-panel">
 				<div class="panel-heading widen-sub-panel-heading">
-					<h2 class="alignleft">Set an initial appointment for this task...</h2>
+					<h2 class="alignleft"><span class="badge badge-success">5</span>&nbsp &nbspSet an initial appointment for this task...</h2>
 				</div> 
 				<div class="inner-div-panel">
 					<%= field_set_tag ''.html_safe, id: "date_time" do %>

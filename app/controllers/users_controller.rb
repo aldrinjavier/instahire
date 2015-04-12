@@ -1,7 +1,16 @@
 class UsersController < ApplicationController
+
+	#FILTERS
 	before_action :logged_in_user, only: [:index, :edit, :update]
-	before_action :restrict_logged_in_user, only: [:new]
-	before_action :correct_user, only: [:edit, :update]
+	before_action :restrict_logged_in_user, only: [:new] #logged in users will not be able to access registration page
+	before_action :correct_user, only: [:edit, :update]	#correct users will not be able to edit or update other's profile
+	
+
+	def destroy
+		User.find(params[:id]).destroy
+		flash[:success] = "User deleted"
+		redirect_to users_url
+	end
 
 	def index
 		# @users = User.all
@@ -71,6 +80,8 @@ def logged_in_user
 		redirect_to login_url
 	end
 end
+
+
 
 # Confirms the correct user.
 # Correct user will not have access to edit and update other users.

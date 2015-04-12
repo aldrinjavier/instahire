@@ -329,7 +329,8 @@ function f_process_category_dropdown(){
 		//change text in the label
 		$("#minimum-label").text("Minimum fixed pay");
 		$("#maximum-label").text("Maximum fixed pay");
-	}else{ //set min and max field to 10, default min value is 10 (no need to set)
+		//set min and max field to 10, default min value is 10 (no need to set)
+	}else{ 
 		if($('#q_pay_offer_gteq').val() == ""){
 			$('#q_pay_offer_gteq').val(10);
 		}

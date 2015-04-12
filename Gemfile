@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
 gem 'jquery-cookie-rails'
 gem 'bootstrap-switch-rails', '~> 3.3.2'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.2'

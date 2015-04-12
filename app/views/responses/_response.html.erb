@@ -1,29 +1,73 @@
-<!-- Form for updating is_accepted attribute -->
-<%= simple_form_for response, remote: true do |f| %>
-<%= f.input :is_accepted, as: :hidden %>
-<%= f.button :submit %>
+<div class="response_area">
 
-<% if !response.is_accepted%>
-<!-- accept button -->
-<button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Accept</button>
-<% else%>
-<!-- cancel button -->
-<button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Cancel</button>
-<% end %>
+	<!-- Form for updating is_accepted attribute or to accept an offer from a worker-->
+	<%= simple_form_for response do |f| %>
 
-<% end %>
-<!--END: form -->
+	<!-- is_accepted hidden field -->
+	<%= f.input :is_accepted, as: :hidden %>
 
-<!-- name and time posted -->
-<%= "#{response.user.fullname} | #{customised_time_ago_in_words(response.created_at)} ago" %>
-<br>
-<!-- subcomment's comment text -->
-<%= response.comment_text %>
-<br>
-<!-- reply button -->
-<%= link_to "Reply", new_subcomment_path(:response_id => response.id), class: "subcomment_link", id: "new_subcomment#{response.id}", remote: true %>
+	<!-- submit button field -->
+	<%= f.button :submit %>
 
-<%= link_to "Hide comments", 'javascript:;', class: "hide_subcomment_link", id: "hide_subcomment_formx#{response.id}"%>
+	<!-- Accept or Cancel button are only shown to the client of task -->
+	<% if current_user?(response.task.client) %> 
 
-<br> 
-<br>
+	<!-- Accept/cancel buttons will be used to update is_accepted hidden field  -->
+	<!-- if is_comment is false, it is a negotiation. Buttons are only shown if the response is negotiation, else if comment, they are hidden  -->
+	<% if response.is_comment == false %>
+
+	<!-- if response is not accepted, accept button is shown-->
+	<% if !response.is_accepted %>
+
+	<!-- accept button -->
+	<button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Accept</button>
+
+	<!-- if a response is accepted, cancel button is shown-->
+	<% else%>
+
+	<!-- cancel button -->
+	<button type="button" class="btn btn-default btn-xs pull-right is-accepted" aria-label="Left Align" >Cancel</button>
+	
+	<% end %> <!-- end: if current_user.client? -->
+	
+	<% end %> <!-- end: response.is_comment == false -->
+
+	<% end %> <!-- end: !response.is_accepted -->
+
+
+	<% end %>
+	<!--END: update is_accepted form -->
+
+	<!-- name and time posted -->
+	<div class="worker_offer"><%= "#{response.user.fullname} | #{customised_time_ago_in_words(response.created_at)} ago" %></div>
+	<br>
+	<!-- subcomment's comment text -->
+	<%= response.comment_text %>
+	<br>
+
+	
+	<div id="reply_and_replies_count<%= response.id %>">
+
+		<!-- response's reply link is only shown to the client of this task and to the responder itself -->
+		<% if current_user?(response.user) || current_user?(response.task.client)%>
+
+		<!-- reply link -->
+		<%= link_to "Reply", new_subcomment_path(:response_id => response.id), class: "subcomment_link", id: "reply_new_subcomment#{response.id}", remote: true %>
+		<% end %>
+
+		<!-- reply counter link -->
+		<%= link_to "#{pluralize(response.subcomments.count, 'reply')}", new_subcomment_path(:response_id => response.id), class: "subcomment_link", id: "new_subcomment#{response.id}", remote: true %>
+
+	</div>
+
+	<!-- link to hide subcomments of this response and its subcomment form -->
+	<%= link_to "Hide #{response.subcomments.count} replies", 'javascript:;', class: "hide_subcomment_link", id: "hide_subcomment_formx#{response.id}"%>
+	
+	 <!-- delete link is only shown to worker's own response -->
+	<% if current_user?(response.user)%>
+	<%= link_to "delete", response, method: :delete, data: { confirm: "You sure?" } %>
+	<% end %>
+	
+	<br> 
+	<br>
+</div> <!-- End of response area -->

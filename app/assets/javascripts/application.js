@@ -21,6 +21,7 @@
 //= require bootstrap-datepicker
 //= require jquery.turbolinks
 //= require turbolinks
+//= require data-confirm-modal
 //= require_tree .
 
 

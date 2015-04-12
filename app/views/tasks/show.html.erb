@@ -1,6 +1,6 @@
 Title: <%= @task.title%>
 <br>
-Full name: <%= @task.client.fullname%>
+Client name: <%= @task.client.fullname%>
 <br>
 Area: <%= @task.area.name%>
 <br>
@@ -12,6 +12,10 @@ Category: <%= @task.subcategory.category.name%>
 <br>
 Description: <%= @task.description%>
 <br>
+Pay offer: €<%= @task.pay_offer%>
+<br>
+Pay type: <%= @task.is_pay_per_hour ? "Pay per hour": "Fixed pay"%>
+<br>
 <br>
 Upcoming Appointment:
 <%= @task.appointments.first.start_at.strftime("%I:%M %p")%>
@@ -20,27 +24,46 @@ Upcoming Appointment:
 Past Appointments:
 <br>
 <br>
+
+<% if !@accepted_offer.nil? %>
+ACCEPTED OFFER:
+
+<%= @accepted_offer.comment_text %>
+<%= @accepted_offer.is_comment %>
+<% end %>
+<br>
+<br>
+
 Questions and negotiations:
 <div class="row">
 	<div class="col-md-5">
-
-		<%= link_to "Close", task_path(:is_comment => "false"), class: "btn btn-success btn-lg", id: "close-collapse", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %>
+		<% if !current_user.client? %> <%# if client, response form will be hidden, else if worker, it will be shown%>
+		<%= link_to "switch", task_path(:is_comment => "false"), class: "btn btn-success btn-lg", id: "switch-collapse", remote: true %>
 		<%= link_to "Ask a question", task_path(:is_comment => true), class: "btn btn-success btn-lg", id: "ask-question", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %>
 		<%= link_to "Negotiate pay", task_path(:is_comment => false), class: "btn btn-success btn-lg pull-right", id: "negotiate", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %>
-		
-		<br>
+		<br><br>
 		<div id="response-form" class="collapse">
-			<%= simple_form_for([@task, Response.new]) do |f| %>
+			<%= simple_form_for ([@task, Response.new]) do |f| %>
 			<%= f.input :is_comment, as: :hidden %>
-			<%= f.input :negotiate_pay, label: false %>
+			<div class="row" id="negotiate-field">	
+				<%= f.input :negotiate_pay, wrapper: :horizontal_input_group, label: false do %>
+				<span class="input-group-addon">€</span>
+				<%= f.input_field :negotiate_pay, as: :integer, class: "form-control", min: @task.pay_offer, step: '1', value: @task.pay_offer %>
+				<span class="input-group-addon">Euro</span>
+				<% end %><br><p id="negotiation_pay_hint" class="help-block">#</p>
+			</div>
+
 			<%= f.input :comment_text, as: :text, input_html: {rows: 3}, label: false %>
+			<p id="comment_text_hint"class="help-block"></p>
 			<div class="row"> 
 				<div class="col-md-4 col-md-offset-8">
-					<%= f.button :submit %>
+					<%= f.button :submit, id: "create_response_button" %>
 				</div>
 			</div>
+			<% end %>
 		</div>
-		<% end %>
+		<% end %> 
+		
 		<br>
 		<div id="comments">
 			<%= render @responses %>
