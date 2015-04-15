@@ -93,6 +93,13 @@ $(function() {
 			});
 		}
 	});
+
+$(function(){
+	$('.extra-info').popover({ trigger: "hover" })
+	$('.extra-negotiation-info').popover({ trigger: "hover" })
+	
+});
+
 });
 
 

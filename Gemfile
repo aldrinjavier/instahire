@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
+gem 'rmagick'
+gem 'carrierwave', '0.10.0'
+gem 'mini_magick', '3.8.0'
+gem 'fog', '1.23.0'
 gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
 gem 'jquery-cookie-rails'
 gem 'bootstrap-switch-rails', '~> 3.3.2'

@@ -3,12 +3,19 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="panel panel-default main-panel">
+
+			<!-- wroker registration or client registration -->
 			<div class="panel-heading widen-main-panel-heading">				
-				<h3 class="alignleft"><%= display_header(@user.client) %></h3>	
+				<h2 class="alignleft"><%= display_header(@user.client) %></h2>	
 			</div>
 
 			<%= simple_form_for @user, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
 
+			<%# Error message heading%>
+			<div class="widen-error">
+				<%= render 'shared/error_messages', object: f.object %>
+			</div>
+			<%# END: Error message heading%>
 
 			<fieldset>
 				<div class="panel panel-default sub-panel">
@@ -22,10 +29,10 @@
 					</div>
 				</div>
 			</fieldset>
-
+			
 			<div class="row">
 				<div class="col-md-3 col-md-offset-9">
-					<%= f.button :submit, "Join Instahire", class: "btn btn-primary btn-md submit-button" %>
+					<%= f.button :submit, "Join Instahire", class: "btn btn-success btn-md submit-button" %>
 				</div>
 			</div>
 

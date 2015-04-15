@@ -148,6 +148,21 @@
 			<div class="tab-content">
 
 				<div class="tab-pane active" id="public_post">
+
+					<% @public_posts.each do |post| %>
+
+					<li class="list-group-item ">
+
+					
+
+					</li>	
+
+					<% end %>
+				</div>
+
+
+
+				<!-- <div class="tab-pane active" id="public_post">
 					<%= @search.result.to_sql%>
 					<% @public_posts.each do |post| %>
 					<br>
@@ -181,7 +196,7 @@
 					<% end %>
 
 					<hr>
-				</div><!--/tab-pane-->
+				</div><!--/tab-pane--> -->
 
 			</div>
 		</div>

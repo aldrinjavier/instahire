@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 	attr_accessor :remember_token
 	attr_accessor :county_id
 
+	mount_uploader :picture, PictureUploader
+
 	#RELATIONSHIPS
 	belongs_to :area
 	delegate :county, :to => :area
@@ -33,15 +35,24 @@ class User < ActiveRecord::Base
 	before_save {self.email = email.downcase}
 	# validates :first_name, presence: true, length: {maximum: 25}
 	# validates :last_name, presence: true, length: {maximum: 25}
+
+	# Email validations
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-	validates :email, presence: true, length: {maximum: 255}, 
-	format: {with: VALID_EMAIL_REGEX},
-	uniqueness: { case_sensitive: false }
+	validates :email, presence: {message: "Please enter an email." }, length: {maximum: 50}
+	validates :email, format: {with: VALID_EMAIL_REGEX, :message => "Invalid! Please enter a valid email."},
+	:if => lambda { |o| o.email.present?}
+	validates :email, uniqueness: { case_sensitive: false, :message => "This email has already been taken." } 
+
+
+	# Password validations
 	has_secure_password
 	validates :password, length: { minimum: 6 }, allow_blank: true
-	# validates :county_id, presence: true
-	# validates :area_id, presence: true
 
+	# Location validations
+	validates :county_id, presence: true, :if => lambda { self.created_at?}
+	validates :area_id, presence: true, :if => lambda { |o| o.county_id.present?}
+	
+# , length: {maximum: 255},
 	# Returns a random token.
 	# Class method
 
@@ -49,6 +60,10 @@ class User < ActiveRecord::Base
 		"Pay per hour" => "Pay per hour",
 		"Fixed pay" => "Fixed pay",
 	}
+
+	def testing
+
+	end
 
 	
 	def fullname

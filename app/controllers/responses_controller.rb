@@ -26,6 +26,10 @@ class ResponsesController < ApplicationController
 			end
 		end
 
+		# update negotiated_pay (pay agreement)
+		@task.update_attribute(:negotiated_pay, @response.negotiate_pay) 
+		@task.update_attribute(:worker, @response.user)  
+
 		#update the newly accepted offer from response
 		@response.update_attributes(response_params)
 		respond_to do |format|

@@ -56,6 +56,8 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
+
+		
 		if @user.update_attributes(user_params)
 			flash[:success] = "Profile updated"
 			redirect_to @user
@@ -66,6 +68,7 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
+		@user.county_id = @user.county.id
 	end
 
 	private

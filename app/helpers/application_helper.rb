@@ -15,7 +15,7 @@ module ApplicationHelper
 		fields = f.simple_fields_for(association, new_object, child_index: id) do |builder|
 			render(association.to_s.singularize + "_form", f: builder)
 		end
-		link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+		link_to(name, '#', class: "add_fields btn glyphicon glyphicon-plus-sign", data: {id: id, fields: fields.gsub("\n", "")})
 	end
 
 	def time_in_hour_and_minutes(seconds_value)

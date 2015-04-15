@@ -1,21 +1,62 @@
 <% provide(:title, "Edit user") %>
 <h1>Update your profile</h1>
 <div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<%= simple_form_for @user, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
-		<%= f.input :email %>
-		<%= f.input :password %>
-		<%= f.input :password_confirmation %>
-		<%= f.input :first_name %>
-		<%= f.input :last_name %>
-		<%= f.input :personal_bio %>
-		<%= f.input :area %>
-	
-	<%= f.submit "Save changes", class: "btn btn-primary" %>
-	<% end %>
-	<div class="gravatar_edit">
-		<%= gravatar_for @user %>
-		<a href="http://gravatar.com/emails">change</a>
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-default main-panel">
+			<%= simple_form_for @user, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
+
+			<div class="widen-error">
+				<%= render 'shared/error_messages', object: f.object %>
+			</div>
+			<fieldset>
+				<div class="panel panel-default sub-panel">
+					<div class="inner-div-panel">
+						<%= f.input :email %>
+						<%= f.input :password %>
+						<%= f.input :password_confirmation, label: "Confirm password" %>
+						<%= f.input :first_name %>
+						<%= f.input :last_name %>
+						<%= f.input :personal_bio %>
+						<%= f.input :county_id, collection: County.order(:name), label_method: :name, value_method: :id, label: "County", include_blank: "Select a category of task" %>
+						<%= f.input :area_id, collection: County.order(:name), as: :grouped_select, group_method: :areas %>
+						<!-- <p id= "selected_county"><%#  @user.county.id if @user.county.present? %><p> -->
+
+
+						<div class= "upload-section">
+							<%= f.input :picture_cache, as: :hidden %>
+
+							<div class="row">
+								<div class="col-md-3">
+									<% if @user.picture? %>
+									<%= image_tag @user.picture_url(:thumb), class: "img-thumbnail", :id => "prof_pic"  %>
+									<% else %>
+									<%= image_tag 'default.jpg', :size => "100x100", class: "img-thumbnail"  %>
+									<br><br>
+									<% end %>
+
+								</div>
+								<span id="selected_a"><label >Currently selected: </label></span>
+								<span id="selected_a_content"><%= @user.picture.file.filename if @user.picture? %></span><br>
+
+								<span id="selected_b"><label>Currently Selected:</label></span>
+								<%= f.input :remove_picture, as: :boolean, label: "Remove currently selected display picture" %>
+
+								<div class="picture">
+									<%= f.input :picture, label: false %>	
+								</div>
+
+								
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</fieldset>
+
+
+			<%= f.submit "Save changes", class: "btn btn-primary" %>
+			<% end %>
+		</div>
 	</div>
-</div>
 </div>

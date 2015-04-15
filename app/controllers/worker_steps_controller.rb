@@ -8,6 +8,11 @@ class WorkerStepsController < ApplicationController
 	def show
 		@user = current_user
 		case step
+		when :basic_info
+			# if area id is present, assign it to county_id so that when previous step is clicked, 
+			# a value will be selected in county and area id.
+			@user.county_id = @user.county.id if @user.area_id?
+
 		when :education_experience
 			@user.educations.build if @user.educations.count < 1
 
@@ -22,6 +27,8 @@ class WorkerStepsController < ApplicationController
 	end
 
 	def update
+
+		
 		@user = current_user
 
 		@user.update_attributes(user_params)

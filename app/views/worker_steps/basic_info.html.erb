@@ -1,48 +1,110 @@
+<!-- Row -->
 <div class="row">
+	<!-- col 8 -->
 	<div class="col-md-8 col-md-offset-2">
+		<!-- Main panel-->
 		<div class="panel panel-default main-panel">
-			<div class="panel-heading widen-main-panel-heading">
-				
-				<h3 class="alignleft">Basic information</h3>
+			<!-- Main panel's heading-->
+			<div class="panel-heading widen-main-panel-heading">			
+				<!-- Step 1 -->
+				<h2 class="alignleft"><strong>BASIC INFORMATION</strong></h2>	
 
+				<!-- Step 1 progress bar -->
 				<div style="text-align: right">
 					<div style="display:inline-block"><h2>Step 1 of 4</h2></div>
 					<div style="display:inline-block">
 						<div class="progress education-progress">
-							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
-								
+							<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">			
 							</div>
 						</div>
 					</div>
 				</div>
+				<!--// Step 1 progress bar -->
+
 			</div> 
+			<!--// Main panel heading-->
 
+			<!-- User form -->
+			<%= simple_form_for @user, url:wizard_path, html: {multipart: true, class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
 
-			<%= simple_form_for @user, url:wizard_path, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
-
+			<!-- Fieldset -->
 			<fieldset>
+				<!-- Subpanel -->
 				<div class="panel panel-default sub-panel">
+					<!-- Inner panel -->
 					<div class="inner-div-panel">
+
+						<!-- upload section -->
+						<div class= "upload-section">
+
+							<!-- picture cache -->
+							<%= f.input :picture_cache, as: :hidden %>
+
+							<!-- Row -->
+							<div class="row">
+
+								<!-- col 3 -->
+								<div class="col-md-3">
+									<!-- display picture -->
+									<% if @user.picture? %>
+									<%= image_tag @user.picture_url(:thumb), class: "img-thumbnail", :id => "prof_pic"  %>
+									<% else %>
+									<%= image_tag 'default.jpg', :size => "100x100", class: "img-thumbnail"  %>
+									<br><br>
+									<% end %>
+								</div>
+								<!--// col 3 -->
+								<!--// display picture -->
+
+								<!-- selected a label -->
+								<span id="selected_a"><label >Currently selected: </label></span>
+
+								<!-- file name -->
+								<span id="selected_a_content"><%= @user.picture.file.filename if @user.picture? %></span><br>
+								<!-- selected b label -->
+								<span id="selected_b"><label>Currently Selected:</label></span>
+
+								<!-- remove photo check box -->
+								<%= f.input :remove_picture, as: :boolean, label: "Remove currently selected display picture" %>
+
+								<!-- upload file input -->
+								<div class="picture-upload">
+									<%= f.input :picture, label: false %>	
+								</div>			
+							</div>
+							<!--// row -->
+						</div>
+						<!--// upload section -->
+
+						<!-- presonal bio -->
 						<%= f.input :personal_bio, as: :text %>
+						<!-- county -->
 						<%= f.input :county_id, collection: County.order(:name), label_method: :name, value_method: :id, label: "County", include_blank: "Select a category of task" %>
+						<!-- area -->
 						<%= f.input :area_id, collection: County.order(:name), as: :grouped_select, group_method: :areas %>
 					</div>
+					<!--// Inner panel -->
 				</div>
+				<!--// Subpanel -->
 			</fieldset>
+			<!--// Fieldset -->
 
+
+			<!-- submit button -->
 			<div class="row">
-
 				<div class="col-md-3 col-md-offset-9">
-					<%= f.button :submit, "Continue", class: "btn btn-primary btn-md submit-button" %>
+					<%= f.button :submit, "Continue", class: "btn btn-success btn-md submit-button" %>
 				</div>
-				
 			</div>
-
+			<!--// submit button -->
 
 			<% end %>
+			<!--// User form -->
 		</div>
+		<!-- main panel -->
 	</div>
+	<!--// col 8 -->
 </div>
-
+<!--// row 8 -->
 
 

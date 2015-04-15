@@ -1,8 +1,8 @@
 Personal bio
 
-<%= @user.personal_bio %>
+<%= @user.personal_bio %><br>
 
-Education Experience
+Education Experience<br>
 <%for education in @user.educations %>
 <li>
 	<%= education.school_name%>
@@ -12,7 +12,7 @@ Education Experience
 </li>
 <% end %>
 
-Work Experience
+Work Experience<br>
 <%for work in @user.works %>
 <li>
 	<%= work.company_name %>
