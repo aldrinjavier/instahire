@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 			if @user.client == true 
 				redirect_to client_steps_path
 			else
+				flash[:success] = "Thank you for registering! Please complete the following steps"
 				redirect_to worker_steps_path
 			end
 		else
@@ -68,7 +69,9 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
-		@user.county_id = @user.county.id
+		if @user.county_id.present?
+			@user.county_id = @user.county.id
+		end
 	end
 
 	private

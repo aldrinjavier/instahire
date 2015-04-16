@@ -2,9 +2,9 @@ module UsersHelper
 
 	def display_header(isClient)
 		if isClient
-			"Client Registration"
+			"CLIENT REGISTRATION"
 		else
-			"Worker Registration"
+			"WORKER REGISTRATION"
 		end
 	end
 

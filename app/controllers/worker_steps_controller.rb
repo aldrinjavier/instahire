@@ -8,7 +8,9 @@ class WorkerStepsController < ApplicationController
 	def show
 		@user = current_user
 		case step
+			
 		when :basic_info
+
 			# if area id is present, assign it to county_id so that when previous step is clicked, 
 			# a value will be selected in county and area id.
 			@user.county_id = @user.county.id if @user.area_id?
@@ -28,8 +30,9 @@ class WorkerStepsController < ApplicationController
 
 	def update
 
-		
 		@user = current_user
+
+
 
 		@user.update_attributes(user_params)
 
@@ -43,5 +46,12 @@ class WorkerStepsController < ApplicationController
 		if current_user.client?
 			redirect_to(root_url)
 		end
+	end
+
+	#override
+	def finish_wizard_path
+		flash[:success] = "Welcome to Instahire! You are now a registered worker."
+		user_path(current_user)
+
 	end
 end

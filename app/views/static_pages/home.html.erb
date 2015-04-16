@@ -3,5 +3,18 @@
 	<h1>Homepage</h1>
 	<h2>
 		Instahire
+		<%= link_to "Catalogue", search_catalogues_path, class: "home_page_links" %>
 	</h2>
+
+	<%= search_form_for @search, :defaults => {:required => false}, url: url_for(controller: 'catalogues', action: 'index') do |f| %>
+
+	<%= f.input :subcategory_category_id_eq, label: "Category", collection: Category.order(:name), label_method: :task_name_and_count, value_method: :id, include_blank: "All categories ", :input_html => { id: "hell"} %>
+	<%= link_to "Education", "#edu", :id => "edu"%>
+	<%=link_to("Edu", "http://localhost:3000/catalogues?utf8=%E2%9C%93&q[subcategory_category_id_eq]=1&commit=Search") %>
+
+<%=link_to 'January', search_catalogues_path(:'q[subcategory_category_id_eq]' => '3'), :id => "edu"%>
+
+
+	<%=f.submit%>
+	<% end %>
 </div>

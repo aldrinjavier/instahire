@@ -1,4 +1,41 @@
 $(document).ready(function() {
+
+	function get_name(str) {
+		var last_char = "";
+		for (var i = 0; i < str.length; i++) {
+			if (str.charAt(i) == "|") {
+				last_char= i
+			}
+		}
+		return str.substring(0, last_char);
+	}
+
+	$("#to-present").hide();
+	// hide date-finished field if is currently working
+	$(document).on('click', '.is-currently-working', function(){
+		if( this.checked){
+			// make the date finished field empty when check box is clicked
+			$(this).parents().eq(5).find($(".user_works_date_finished")).find($(".profile-date option[value='']")).attr('selected', true);
+			$(this).parents().eq(5).find($(".user_works_date_finished")).hide();
+			$("#to-present").show();
+
+		}else{
+			$(this).parents().eq(5).find($(".user_works_date_finished")).show();
+			$("#to-present").hide();
+		}
+	});
+	// the state of checkbox will retain if reloaded or refreshed
+	$(".is-currently-working").each(function(){
+		if($(this).prop( "checked")){
+			$(this).parents().eq(5).find($(".user_works_date_finished")).hide();
+			$("#to-present").show();
+		}else{
+			$(this).parents().eq(5).find($(".user_works_date_finished")).show();
+			$("#to-present").hide();
+		}
+	});
+	
+
 	var areas = $("#user_area_id").html(); 
 	
 	function process_dropdown(){
@@ -82,6 +119,7 @@ $(document).ready(function() {
 	// 		console.log($("#q_subcategory_name_cont :selected").val(string_value));
 	// 	}
 	// });
+
 
 
 });

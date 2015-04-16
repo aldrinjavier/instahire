@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413131008) do
+ActiveRecord::Schema.define(version: 20150415012446) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "task_id",    limit: 4
@@ -132,13 +132,14 @@ ActiveRecord::Schema.define(version: 20150413131008) do
   end
 
   create_table "works", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4
-    t.string   "company_name",  limit: 255
-    t.string   "work_title",    limit: 255
+    t.integer  "user_id",              limit: 4
+    t.string   "company_name",         limit: 255
+    t.string   "work_title",           limit: 255
     t.date     "date_started"
     t.date     "date_finished"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "is_currently_working", limit: 1
   end
 
   add_foreign_key "microposts", "users"

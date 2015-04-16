@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
  protect_from_forgery with: :exception
  include SessionsHelper
  def user_params
-   params.require(:user).permit(:remove_picture, :picture_cache, :picture, :first_name, :last_name, :email, :password, :password_confirmation, :personal_bio, :county_id, :area_id, :client, educations_attributes: [:id, :user_id, :school_name, :degree, :year_started, :year_finished, :_destroy], works_attributes: [:id, :user_id, :company_name, :work_title, :date_started, :date_finished], offered_services_attributes: [:id, :user_id, :subcategory_id, :title, :service_description])
+   params.require(:user).permit(:remove_picture, :picture_cache, :picture, :first_name, :last_name, 
+    :email, :password, :password_confirmation, :personal_bio, :county_id, :area_id, :client,
+    educations_attributes: [:id, :school_name, :degree, :year_started, :year_finished, :_destroy], 
+    works_attributes: [:id, :company_name, :work_title, :date_started, :date_finished, :is_currently_working], 
+    offered_services_attributes: [:id, :user_id, :subcategory_id, :title, :service_description])
  end
 
 # Before filters

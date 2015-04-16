@@ -1,12 +1,12 @@
 <% provide(:title, "Registration") %>
-
+<br><br>
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="panel panel-default main-panel">
 
-			<!-- wroker registration or client registration -->
+			<!-- worker registration or client registration -->
 			<div class="panel-heading widen-main-panel-heading">				
-				<h2 class="alignleft"><%= display_header(@user.client) %></h2>	
+				<h2 class="alignleft"><strong><%= display_header(@user.client)%></strong></h2>	
 			</div>
 
 			<%= simple_form_for @user, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>

@@ -24,20 +24,20 @@
 			<% end %>
 
 			<div class="inline">
-				<%= link_to_add_fields "", f, :educations %>
+				<%= link_to_add_fields "", f, :offered_services %>
 
 				<%= link_to previous_wizard_path,class: "pull-left wizard-path" do %>
 				<i class="glyphicon glyphicon-arrow-left"></i>&nbsp Previous step
 				<% end %>
 
 				<%= link_to next_wizard_path, class: "pull-right wizard-path" do %>
-				Skip this step &nbsp<i class="glyphicon glyphicon-arrow-right"></i>
+				Skip this step for now &nbsp<i class="glyphicon glyphicon-arrow-right"></i>
 				<% end %>
 			</div>
 		
 				<!-- submit button -->
 				<div class="col-md-3 col-md-offset-9">
-					<%= f.button :submit, "Continue", class: "btn btn-success btn-md submit-button prof-info-sub-button" %>
+					<%= f.button :submit, "Save and continue", class: "btn btn-success btn-md submit-button prof-info-sub-button" %>
 				</div>
 				<!--// submit button -->
 

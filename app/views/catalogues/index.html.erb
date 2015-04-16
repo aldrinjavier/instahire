@@ -51,6 +51,7 @@
 		<%#******************SIDE FILTERS******************* %>
 		<div class="col-sm-3">
 			<%#//search form%>
+			<span id="sql_search"><%= @search.result.to_sql%></span>
 			<%= search_form_for @search, :defaults => {:required => false}, url: url_for(controller: 'catalogues', action: 'index') do |f| %>
 			<%#******************Category filter******************* %>
 			<div class="panel panel-default">

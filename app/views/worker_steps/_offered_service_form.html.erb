@@ -3,6 +3,7 @@
 	<div class="panel panel-default sub-panel">
 		<div class="inner-div-panel">
 			<%= f.input :title %>
+			<%= f.input :subcategory_id, collection: Category.order(:name), as: :grouped_select, group_method: :subcategories, label: "Category" %>
 			<%= f.input :service_description, label: "Description" %>
 		</div>
 	</div>

@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
 
 	#VALIDATIONS
 	before_save {self.email = email.downcase}
-	# validates :first_name, presence: true, length: {maximum: 25}
-	# validates :last_name, presence: true, length: {maximum: 25}
+	validates :first_name, presence: {message: "Please enter your first name." }, length: {maximum: 25}
+	validates :last_name, presence: {message: "Please enter your last name." }, length: {maximum: 25}
 
 	# Email validations
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -49,8 +49,8 @@ class User < ActiveRecord::Base
 	validates :password, length: { minimum: 6 }, allow_blank: true
 
 	# Location validations
-	validates :county_id, presence: true, :if => lambda { self.created_at?}
-	validates :area_id, presence: true, :if => lambda { |o| o.county_id.present?}
+	# validates :county_id, presence: true, :if => lambda { self.created_at?}
+	# validates :area_id, presence: true, :if => lambda { |o| o.county_id.present?}
 	
 # , length: {maximum: 255},
 	# Returns a random token.
@@ -60,10 +60,6 @@ class User < ActiveRecord::Base
 		"Pay per hour" => "Pay per hour",
 		"Fixed pay" => "Fixed pay",
 	}
-
-	def testing
-
-	end
 
 	
 	def fullname

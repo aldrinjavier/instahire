@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
 	//variables responsible for filter result string builder 
 	var selected_category = "";
 	var selected_subcategory = "";
@@ -9,6 +10,7 @@ $(document).ready(function() {
 	var filter_result_builder = "";
 	var max = "";
 	var min = "";
+	var search_text = "";
 	
 	/*****HELPER FUNCTIONS*****/
 	//return all chaaracters except count
@@ -221,6 +223,35 @@ function f_process_category_dropdown(){
 	// 	$('label[for=q_area_id_eq]').hide();
 	// 	$("#q_area_id_eq").hide(); 
 	// }
+
+	
+
+	var is_search_clicked_and_string_present = false;
+
+	// hide sql query text
+	$("#sql_search").hide();
+
+	// assign it to a var
+	var sql_search = $("#sql_search").text();
+
+	// detect if search button was clicked and a string is present
+	//  if it returns string "like", it is true
+	if (sql_search.indexOf('LIKE') > -1) {
+		is_search_clicked_and_string_present = true;
+	} else {
+		is_search_clicked_and_string_present = false;
+	}
+
+	// if search text contains a text && is_search_clicked_and_string_present is true, 
+	// get the value of the text string
+	if($("#q_title_or_description_cont").val()){
+		if(is_search_clicked_and_string_present){	
+			// assign to search_text
+			search_text = $("#q_title_or_description_cont").val();
+		}
+
+	}
+
 	if($("#q_area_id_eq :selected").text() != "All"){
 		f_process_location_dropdown();
 	}
@@ -233,13 +264,17 @@ function f_process_category_dropdown(){
 	//all filter forms
 	$('#q_subcategory_id_eq, #q_subcategory_category_id_eq, #q_is_pay_per_hour_eq_any, #q_area_county_id_eq, #q_area_id_eq').change(function() {
 		this.form.submit();
+
 	});
+
 	//refresh button for min and max form
 	$('#refresh-button').click(function(){
+
 		this.form.submit();
 	});
 	//all categories return button
 	$('#all-categories').on('click', function(){
+
 		$('#q_subcategory_category_id_eq').val(0);
 		$('#q_subcategory_id_eq').val(0);
 		this.form.submit();
@@ -268,10 +303,7 @@ function f_process_category_dropdown(){
 
 	/******END: Update query filter if form fields query changed*******/
 
-	/******Set text value of pay type dropdown filter*******/
-	// $('select#q_is_pay_per_hour_eq_any option:nth-child(1)').text("All pay");
-	// $('select#q_is_pay_per_hour_eq_any option:nth-child(2)').text("Pay per hour");
-	// $('select#q_is_pay_per_hour_eq_any option:nth-child(3)').text("Fixed pay");
+	
 	/******END: Set text value of pay type dropdown filter*******/
 	/*****END: FILTERS*****/
 	max = $('#q_pay_offer_lteq').val();
@@ -300,6 +332,9 @@ function f_process_category_dropdown(){
 		}else{
 			filter_result_builder = filter_result_builder + " between €" + min + " and €" + max;
 		}
+	}
+	if(search_text != ""){
+		filter_result_builder = filter_result_builder + " containing the term " + search_text;
 	}
 
 	$("#filter-result-display").text(filter_result_builder);
