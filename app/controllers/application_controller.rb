@@ -4,11 +4,32 @@ class ApplicationController < ActionController::Base
   before_filter :set_global_search_variable
 
   def set_global_search_variable
+   
     # select all task with all upcoming appointments
     # added + 1 hour to match the right time (For some reason, time is 1 hour behind in my laptop)
     @search = Task.joins(:appointments).where(["start_at >= ?", DateTime.now + 1.hours]).search(params[:q])
+    
+    # holds filtered task
+    @result = []
 
-    Task.current = @search
+    # filters @search (filter tasks with pay per hour and 0 duration)
+    @search.result.each_with_index do |t, index|
+      # pay per hour
+      if t.is_pay_per_hour 
+         # only push if start_at and end_at are different 
+         # same start_at and end_at means 0 duration which should not be displayed and should be filtered
+         if t.appointments.first.end_at != t.appointments.first.start_at
+          @result.push t
+        end
+
+        # pay per hour (no filter needed)
+      else
+        @result.push t
+      end
+
+    end  # end each do
+
+    Task.current = @result
   end
 
   protect_from_forgery with: :exception

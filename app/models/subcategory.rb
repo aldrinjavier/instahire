@@ -4,7 +4,7 @@ class Subcategory < ActiveRecord::Base
 	has_many :users
 
 	def task_name_and_count
-		tasks = Task.current.result.to_a
+		tasks = Task.current
 		counter = 0
 		tasks.each do |t|
 			if id == t.subcategory_id

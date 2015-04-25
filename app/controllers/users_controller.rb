@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = current_user
+		@user = User.find(params[:id])
 		@skills = @user.offered_services.paginate page: params[:page], per_page: 3
 		@educations = @user.educations.paginate page: params[:page], per_page: 4
 		@works = @user.works.paginate page: params[:page], per_page: 4

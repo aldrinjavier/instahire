@@ -1,21 +1,38 @@
 <!-- <li class="list-group-item is_your_post_<%#current_user?(post.client) %>"> -->
 <div class="panel panel-default">
-	<div class="panel-heading ">Panel heading without title</div>
+	<div class="panel-heading task-post">
+		<div class="col-md-6">
+			<h4 class="title-heading"><%= link_to post.title, task_path(post.id) %></h4>
+		</div>
+		<div class="col-md-6">
+			<span class="pull-right">OFFERED PAY: &nbsp; <strong>€<%= post.pay_offer%> <%= pay_type(post.is_pay_per_hour)%></strong> </span>
+		</div>
+	</div>
+
 	<div class="panel-body">
 
 		<div class="row">
-
-			<div class="col-md-8"><h4><%= link_to post.title, task_path(post.id) %></h4></div>
-			<div class="col-md-4 text-right">Offered pay: <span class="pull-right">€<%= post.pay_offer%> <%= pay_type(post.is_pay_per_hour)%></span></div>
-
-		</div>
-
-		<br>
-
-		<div class="row">
-
 			<div class="col-md-7"> 
-				Posted by <%= post.client.fullname %> | Located in <%= post.client.area.present? ? post.client.location : "Undefined"  %> <br><br>
+				
+				<div class="row">
+					<div class="col-md-2"> 
+						<!-- Display picture -->
+						<% if post.client.picture? %>
+						<%= image_tag post.client.picture.url, class: "img-thumbnail" if user.picture? %><br><br>
+						<% else %>
+						<%= image_tag 'default.jpg', :size => "90x90", class: "img-thumbnail"  %>
+						<br><br>
+						<% end %>
+					</div>
+
+					<div class="col-md-10"> 
+						<h5>Posted by <%= link_to post.client.fullname, user_path(post.client.id) %> <br> Task Location: <%= post.client.area.present? ? post.client.location : "Undefined"  %> </h5>
+						
+					</div>
+					
+				</div>
+				
+
 				<%= post.description%><br><br>
 				Subcategory: <%= post.subcategory.name%> | Posted <%= customised_time_ago_in_words(post.created_at) %> ago 
 			</div>

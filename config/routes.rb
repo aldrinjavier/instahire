@@ -30,8 +30,11 @@ end
 resources :responses do
   resources :subcomments
 end
+resources :appointments
 resources :subcomments
 resources :educations
+resources :offered_services
+resources :works
 resources :worker_steps
 resources :client_steps
 

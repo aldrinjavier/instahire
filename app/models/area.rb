@@ -5,7 +5,7 @@ class Area < ActiveRecord::Base
 	has_many :tasks
 
 	def task_name_and_count
-		tasks = Task.current.result.to_a
+		tasks = Task.current
 		counter = 0
 		tasks.each do |t|
 			if id == t.area_id
