@@ -3,6 +3,7 @@ class OfferedService < ActiveRecord::Base
 
 	#RELATIONSHIPS
 	belongs_to :user
+	belongs_to :subcategory
 
 	#VALIDATIONS
 	validates :title, presence: {message: "Please enter the name of your sevice" }

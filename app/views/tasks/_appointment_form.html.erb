@@ -1,0 +1,12 @@
+<%= f.input :start_date, label: "Start date", wrapper: :horizontal_input_group do %>
+<%= f.input_field :start_date, placeholder: 'Set ', class: "form-control date start" %><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+<% end %>
+
+<%= f.input :start_time, label: "Start time", wrapper: :horizontal_input_group do %>
+<%= f.input_field :start_time, placeholder: 'Starting time at', as: :string, class: "form-control time start" %><span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+<% end %>
+
+<%= f.input :duration, label: "Duration", wrapper: :horizontal_input_group  do %>
+<%= f.input_field :duration, placeholder: 'Duration', as: :integer, class: "form-control", min: "1", max: "8"%>
+<span class="input-group-addon" id="hour-addon">Hour(s)</span>
+<% end %>

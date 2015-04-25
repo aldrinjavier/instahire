@@ -1,0 +1,54 @@
+<!-- DISPLAY SKILLS -->
+<% if user.offered_services.any? %>
+<div class="panel panel-default sub-panel-profile">
+	<span>
+		<row>
+			<%= image_tag 'skill.png', :size => "60x60" , class: "pull-left profile-icon "%>
+			<h3>&nbsp; Skill (Offered Service) <span class="badge display-count"><%= user.offered_services.count %></span></h3>
+			<%= link_to edit_offered_service_path(current_user), class: "pull-right edit-profile-link" do %>
+			<i class="glyphicon glyphicon-pencil"></i>&nbsp; Edit or Add
+			<% end %>
+		</span>
+		<hr>
+		<div id= "skill_sections">
+			<%= render 'skill_section', skills: @skills %>
+		</div>
+	</div>
+	<% end %>
+
+	<!-- DISPLAY EDUCATIONS -->
+	<% if user.educations.any? %>
+	<div class="panel panel-default sub-panel-profile">
+		<span>
+			<%= image_tag 'education.png', :size => "60x60" , class: "pull-left profile-icon "%>
+			<h3>&nbsp; Education Qualification <span class="badge display-count"><%= user.educations.count %></span></h3>
+			<%= link_to edit_education_path(current_user), class: "pull-right edit-profile-link" do %> 
+			<i class="glyphicon glyphicon-pencil"></i>&nbsp Edit or Add
+			<% end %>
+		</span>
+
+		<hr>
+
+		<div id= "education_sections">
+			<%= render 'education_section', educations: @educations %>
+		</div>
+
+	</div>
+	<% end %>
+
+	<!-- DISPLAY WORK EXPERIENCES -->
+	<% if user.works.any? %>
+	<div class="panel panel-default sub-panel-profile">
+		<%= image_tag 'work.png', :size => "60x60" , class: "pull-left profile-icon "%>
+		<h3>&nbsp Work Experience</h3>
+		<%= link_to edit_work_path(current_user), class: "pull-right edit-profile-link" do %>
+		<i class="glyphicon glyphicon-pencil"></i>&nbspEdit or Add
+		<% end %>
+		<hr>
+
+		<div id= "work_sections">
+			<%= render 'work_section', works: @works %>
+		</div>
+
+	</div>
+	<% end %>

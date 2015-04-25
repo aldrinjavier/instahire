@@ -1,0 +1,38 @@
+<!-- <li class="list-group-item is_your_post_<%#current_user?(post.client) %>"> -->
+<div class="panel panel-default">
+	<div class="panel-heading ">Panel heading without title</div>
+	<div class="panel-body">
+
+		<div class="row">
+
+			<div class="col-md-8"><h4><%= link_to post.title, task_path(post.id) %></h4></div>
+			<div class="col-md-4 text-right">Offered pay: <span class="pull-right">€<%= post.pay_offer%> <%= pay_type(post.is_pay_per_hour)%></span></div>
+
+		</div>
+
+		<br>
+
+		<div class="row">
+
+			<div class="col-md-7"> 
+				Posted by <%= post.client.fullname %> | Located in <%= post.client.area.present? ? post.client.location : "Undefined"  %> <br><br>
+				<%= post.description%><br><br>
+				Subcategory: <%= post.subcategory.name%> | Posted <%= customised_time_ago_in_words(post.created_at) %> ago 
+			</div>
+
+			<div class="col-md-5">
+				Task's Appointment Details: <br>
+				Start time: <%= post.appointments.last.start_at.strftime("%I:%M %p") %> 
+				on <%= post.appointments.last.start_at.strftime("%a, %d %B, %Y") %> <br>
+				<% if post.is_pay_per_hour %>
+				End time: <%= post.appointments.last.end_at.strftime("%I:%M %p")%> on <%= post.appointments.last.end_at.strftime("%a, %d %B, %Y") %> <br>
+
+				Duration: <%= time_in_hour_and_minutes(post.appointments.last.end_at - post.appointments.last.start_at)  %> <br>
+
+				Estimated total earnings: €<%= calculate_earnings(post.appointments.last.end_at - post.appointments.last.start_at, post.pay_offer)  %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+</div>

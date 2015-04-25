@@ -1,0 +1,52 @@
+<fieldset>
+	<%= link_to "", '#', class: "remove_fields glyphicon glyphicon glyphicon-remove delete-icon" %>
+	<div class="panel panel-default sub-panel">
+		<div class="inner-div-panel">
+
+
+			<!-- COMPANY NAME -->
+			<div class="required-field-block">
+				<%= f.input :company_name, placeholder: "Enter the complete name of the company", :required => false %>
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+
+			<!-- WORK TITLE -->
+			<div class="required-field-block">
+				<%= f.input :work_title, placeholder: "Enter your position or complete title of your work", :required => false %>
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+
+			<!-- IS CURRENTLY WORKING -->
+			<div class="col-md-5 col-md-offset-7 adjust-is-working-checkbox">	
+				<%= f.input :is_currently_working, :as => :boolean, :label => "I currently work here", :input_html => { :class => 'is-currently-working' } %>
+			</div>
+
+			<!-- START YEAR -->
+			<br><br><br>
+			<div class="required-field-block">
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+			<%= f.input :date_started, as: :date, start_year: Date.today.year, end_year: Date.today.year - 100, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' }, :required => false %>
+
+			<!-- END YEAR -->
+			<div class="required-field-block" id="required-finished-date">
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>	
+			<%= f.input :date_finished, as: :date, start_year: Date.today.year, end_year: Date.today.year - 100, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' }, :required => false %>	
+
+			
+			<span class= "to-present" id= "to-present">to present.</span>
+
+			<%= f.input :_destroy, as: :hidden %>
+
+		</div>
+	</div>
+</fieldset>

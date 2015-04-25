@@ -50,6 +50,9 @@ class UsersController < ApplicationController
 
 	def show
 		@user = current_user
+		@skills = @user.offered_services.paginate page: params[:page], per_page: 3
+		@educations = @user.educations.paginate page: params[:page], per_page: 4
+		@works = @user.works.paginate page: params[:page], per_page: 4
 		# @search = @user.task_posts.search(params[:q])
 		# @search = Task.all.search(params[:q])
 		@task_posts = @user.task_posts
@@ -58,7 +61,6 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find(params[:id])
 
-		
 		if @user.update_attributes(user_params)
 			flash[:success] = "Profile updated"
 			redirect_to @user
@@ -69,9 +71,10 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
-		if @user.county_id.present?
-			@user.county_id = @user.county.id
-		end
+		# @user.county_id = @user.area.county_id
+		# if @user.county_id.present?
+		# 	@user.county_id = @user.county.id
+		# end
 	end
 
 	private

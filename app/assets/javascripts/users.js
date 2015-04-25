@@ -17,21 +17,25 @@ $(document).ready(function() {
 			// make the date finished field empty when check box is clicked
 			$(this).parents().eq(5).find($(".user_works_date_finished")).find($(".profile-date option[value='']")).attr('selected', true);
 			$(this).parents().eq(5).find($(".user_works_date_finished")).hide();
-			$("#to-present").show();
+			$(this).parents().eq(5).find($(".to-present")).show();
+			$(this).parents().eq(5).find($("#required-finished-date")).hide();
 
 		}else{
 			$(this).parents().eq(5).find($(".user_works_date_finished")).show();
-			$("#to-present").hide();
+			$(this).parents().eq(5).find($(".to-present")).hide();
+			$(this).parents().eq(5).find($("#required-finished-date")).show();
 		}
 	});
 	// the state of checkbox will retain if reloaded or refreshed
 	$(".is-currently-working").each(function(){
 		if($(this).prop( "checked")){
 			$(this).parents().eq(5).find($(".user_works_date_finished")).hide();
-			$("#to-present").show();
+			$(this).parents().eq(5).find($(".to-present")).show();
+			$(this).parents().eq(5).find($("#required-finished-date")).hide();
 		}else{
 			$(this).parents().eq(5).find($(".user_works_date_finished")).show();
-			$("#to-present").hide();
+			$(this).parents().eq(5).find($(".to-present")).hide();
+			$(this).parents().eq(5).find($("#required-finished-date")).show();
 		}
 	});
 	
@@ -45,20 +49,23 @@ $(document).ready(function() {
 		console.log(options);
 		if(options){
 			$('label[for=user_area_id]').show();
-			$("#user_area_id").show().html('<option value="">Please Select</option>' + options);
+			$("#user_area_id").show().html('<option value="">Select area where you are located</option>' + options);
+			$("#required-area").show();
 		}else{
 			$('#user_area_id').empty()
 			$('label[for=user_area_id]').hide();
 			$('#user_area_id').hide();
+			$("#required-area").hide();
 		}
 	}
 
-	if($("#user_area_id :selected").text() == "Please Select"){
+	if($("#user_area_id :selected").text() == "Select area where you are located"){
 		$('label[for=user_area_id]').hide();
 		$("#user_area_id").hide(); 
+		$("#required-area").hide();
 	}
 	
-	if($("#user_area_id :selected").text() != "Please Select"){
+	if($("#user_area_id :selected").text() != "Select area where you are located"){
 		process_dropdown();
 	}
 
@@ -66,59 +73,34 @@ $(document).ready(function() {
 		process_dropdown();
 	});
 
+	// alert($("#user_area_id :selected").text());
+	// alert($("#user_county_id :selected").text());
 
-
-	if( $("#selected_a_content").text() == "" ){
-		$("#selected_a").text("You do not have a display photo.");
-		$("#selected_a_content").hide();
-		$("#selected_b").hide();
-		$(".user_remove_picture").hide();
-	}
-	else{
-
-		if($("#user_picture").val() == ""){
-			$("#selected_b").hide();
+	function hide_submit_button_basic_info(){
+		if($("#user_area_id").is(":visible") && $("#user_area_id :selected").text() != "Select area where you are located"){
+			$("#user_area_id").closest('form').find(':submit').prop('disabled', false);
 		}else{
-			$("#prof_pic").css({opacity:0.4});
-			$("#selected_a").text("Previously selected: ").css({opacity:0.4});
-			$("#selected_a_content").css({opacity:0.4});
-			$("#selected_b").show();
-			$("#selected_b").text("Photo to upload: "+$("#user_picture").val()).css("font-weight","Bold");
+			$("#user_area_id").closest('form').find(':submit').prop('disabled', true);
 		}
-
-		// $("#user_picture").val(1)
-
 	}
 
-	$("#user_picture").change(function(){
-		// alert($("#user_picture").val());
-		$("#prof_pic").css({opacity:0.4});
-		if($("#selected_a_content").text() != ""){
-			$("#selected_a").text("Previously selected: ").css({opacity:0.4});
-			$("#selected_a_content").css({opacity:0.4});
-		}
-		$("#selected_b").show();
-		$("#selected_b").text("Photo to upload: "+$("#user_picture").val()).css("font-weight","Bold");
+	hide_submit_button_basic_info();
+	$("#user_area_id").change(function(){
+		hide_submit_button_basic_info();
 	});
 
-	// $("#user_picture").change(function(){
-	// 	if($("#selected_a_content").text() != ""){
-	// 		alert("not null");
-	// 	}else{
-	// 		alert("null");
-	// 	}
-	// });
-	// $("#user_county_id").val($("#selected_county").text());
+	$('.article').readmore({
+		maxHeight: 80,
+		speed: 250,
+		moreLink: '<a href="#" class="read-more-link">Read more...</a>',
+		lessLink: '<a href="#">Read less</a>'
 
-// $("#user_picture").val(1)
-	// $("#q_subcategory_name_cont").change(function(){
+	});
 
-	// 	if( $("#q_subcategory_name_cont").val() != ""){
-	// 		string_value = $("#q_subcategory_name_cont :selected").text();
-	// 		value = $("#q_subcategory_name_cont :selected").val();
-	// 		console.log($("#q_subcategory_name_cont :selected").val(string_value));
-	// 	}
-	// });
+	$('.article').readmore();
+
+
+	
 
 
 

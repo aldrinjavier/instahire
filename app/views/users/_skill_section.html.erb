@@ -1,0 +1,32 @@
+<% skills.each do |s| %>
+<!-- row -->
+<div class="row">
+
+	<!-- SKILL NAME -->
+	<div class="col-md-6">
+		<h5>Skill Name:&nbsp; </h5> 
+		<h4 ><%= s.title %></h4> 
+	</div>
+
+	<!-- CATEGORY -->
+	<div class="col-md-6">
+		<h5>Skill Category:</h5>
+		<h4><%= s.subcategory.name%></h4> 
+
+	</div>
+
+	<!-- DESCRIPTION -->
+	<div class="col-md-12">
+		<h5>Description:</h5>
+		<div class="well well-sm">
+			<p1 class = "article"><%= s.service_description %></p1>
+		</div>
+		<hr>
+	</div>
+
+</div>
+<!--// row -->
+
+<% end %>
+
+<%= will_paginate skills %>

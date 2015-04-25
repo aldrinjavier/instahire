@@ -3,17 +3,28 @@
 		<div class="panel panel-default main-panel">
 			
 			<div class="panel-heading widen-main-panel-heading">
-				<h3 class="alignleft">Education qualification</h3>
+				<%= image_tag 'education.png', :size => "40x40" , class: "pull-left edit-icon "%>
+				<h2 class="alignleft">
+					&nbsp;
+					<strong><%= @user.educations.count < 1 ? "ADD EDUCATION QUALIFICATION": "EDIT OR ADD EDUCATION QUALIFICATION" %></strong>
+				</h2>
 			</div> 
 
 			<%= simple_form_for @user, url: {action: "update"}, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
+
 			<%= f.simple_fields_for :educations do |b| %>
 			<%= render 'education_form', f: b %>
 			<% end %>
-			<%= link_to_add_fields "Add Education", f, :educations %>
+
+			<ul class="list-group" id="nil_element_warning">
+				<li class="list-group-item list-group-item-warning">You have no education. Click the button below to add. </li>
+			</ul>
+
+			<%= link_to_add_fields "", f, :educations, "/educations/education_form", "adjust-add-button-edit-page" %>
+
 			<div class="row">
 				<div class="col-md-3 col-md-offset-9">
-					<%= f.button :submit, "Continue", class: "btn btn-primary btn-md submit-button" %>
+					<%= f.button :submit, "Update Education", class: "btn btn-primary btn-md submit-button" %>
 				</div>
 			</div>
 

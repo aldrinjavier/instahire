@@ -50,7 +50,6 @@ $(document).ready(function() {
 		options = $(subcategories).filter('optgroup[label="'+ category +'"]').html();
 		console.log(options);
 		if(options){
-			alert("hello");
 			$('label[for=task_subcategory_id]').show();
 			$("#task_subcategory_id").show(1000).html('<option value="">Select a subcategory</option>' + options);
 		}else{

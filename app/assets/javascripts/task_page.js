@@ -332,5 +332,6 @@ $(".hide_subcomment_link").click(function(){
 			$(this).hide();
 		}
 	});
+
 });
 

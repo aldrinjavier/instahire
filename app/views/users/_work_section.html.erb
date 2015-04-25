@@ -1,0 +1,34 @@
+<% works.each do |w| %>
+<!-- row -->
+<div class="row">
+
+	<!-- COMPANY NAME -->
+	<div class="col-md-12">
+		<h5>Company Name:&nbsp; </h5> 
+		<h4><%= w.company_name.split.map(&:capitalize).join(' ')  %></h4>
+	</div>
+
+	<!-- WORK TITLE -->
+	<div class="col-md-12">
+		<h5>Work title/ Position:&nbsp; </h5> 
+		<h4><%= w.work_title %></h4>
+	</div>
+
+	<!-- TIME PERIOD -->
+	<div class="col-md-12">
+		<h5>Dates attended:&nbsp; </h5> 
+		<% if w.is_currently_working? %>
+		<h4><%= w.date_started.strftime("%B %Y") %> - Present  <%= time_period(w.date_started, DateTime.now)%> </h4>
+		<% else %>
+		<h4><%= w.date_started.strftime("%B %Y") %> - <%= w.date_finished.strftime("%B %Y") %>
+			<%= time_period(w.date_started, w.date_finished)%> 
+		</h4>
+		<% end %>
+	</div>
+
+
+	<hr>
+</div>
+
+<% end %>
+

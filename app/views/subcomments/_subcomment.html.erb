@@ -1,2 +1,18 @@
+<article class="row">
+	<div class="col-md-2">
+		<% if subcomment.user.picture? %>
+		<%= image_tag subcomment.user.picture_url(:thumb), class: "img-thumbnail", :id => "prof_pic"  %>
+		<% else %>
+		<%= image_tag 'default.jpg', :size => "100x100", class: "img-thumbnail"  %>	
+		<% end %>
+	</div>
 
-<%= subcomment.comment_text %><br>
+	<div class="col-md-10">
+		<!-- name and time posted -->
+		<div class="worker_offer">
+			<%= "#{subcomment.user.fullname} | #{customised_time_ago_in_words(subcomment.created_at)} ago" %>
+		</div> <br>
+		<%= subcomment.comment_text %>
+	</div>
+</article>
+<hr>

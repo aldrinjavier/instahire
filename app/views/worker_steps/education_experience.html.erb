@@ -1,31 +1,25 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="panel panel-default main-panel">
-			<div class="panel-heading widen-main-panel-heading">
-				
-				<h2 class="alignleft"><strong>EDUCATION QUALIFICATION</strong></h2>
 
-				<div style="text-align: right">
-					<div style="display:inline-block"><h2>Step 2 of 4</h2></div>
-					<div style="display:inline-block">
-						<div class="progress education-progress">
-							<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-								
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="panel-heading widen-main-panel-heading">
+				<%= render 'header', step: "EDUCATION QUALIFICATION", step_count: "Step 2 of 4", width: "width: 50%" %>
 			</div> 
 
 
 			<%= simple_form_for @user, url:wizard_path, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
+			
 			<%= f.simple_fields_for :educations do |b| %>
-			<%= render 'education_form', f: b %>
+			<%= render '/educations/education_form', f: b %>
 			<% end %>
-			<%# link_to_add_fields "", f, :educations %>
 
 			<div class="inline">
-				<%= link_to_add_fields "", f, :educations %>
+
+				<ul class="list-group" id="nil_element_warning">
+					<li class="list-group-item list-group-item-warning">You have no education. Click the button below to add.</li>
+				</ul>
+
+				<%= link_to_add_fields "", f, :educations, "/educations/education_form" %>
 
 				<%= link_to previous_wizard_path,class: "pull-left wizard-path" do %>
 				<i class="glyphicon glyphicon-arrow-left"></i>&nbsp Previous step
@@ -35,12 +29,12 @@
 				Skip this step for now &nbsp<i class="glyphicon glyphicon-arrow-right"></i>
 				<% end %>
 			</div>
-		
-				<!-- submit button -->
-				<div class="col-md-3 col-md-offset-9">
-					<%= f.button :submit, "Save and continue", class: "btn btn-success btn-md submit-button prof-info-sub-button" %>
-				</div>
-				<!--// submit button -->
+
+			<!-- submit button -->
+			<div class="col-md-3 col-md-offset-9">
+				<%= f.button :submit, "Save and continue", class: "btn btn-success btn-md submit-button prof-info-sub-button" %>
+			</div>
+			<!--// submit button -->
 			<% end %>
 		</div>
 	</div>

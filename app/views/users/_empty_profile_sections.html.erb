@@ -1,0 +1,58 @@
+<!-- Display this if education, work and skill are empty -->
+<div class="row">
+	<div class="col-sm-4">
+		<div class="panel panel-body">	
+			<div class="row">
+				<div class="col-sm-4">
+					<!-- Skills(service) icon -->
+					<%= image_tag 'skill.png', :size => "70x70"%>
+				</div>
+				<div class="col-sm-8">
+					<br>
+					<%= link_to edit_offered_service_path(current_user, :elements_nil => "true"), class: "pull-left" do %> 
+					<i class="glyphicon glyphicon-plus"></i>&nbspAdd Skill
+					<% end %>
+				</div>
+			</div>
+			Members with skills on their profile get 4 times as many profile views.
+		</div>
+	</div>
+
+	<div class="col-sm-4">
+		<div class="panel panel-body">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<!-- Education icon -->
+					<%= image_tag 'education.png', :size => "70x70"%>
+				</div>
+				<div class="col-sm-8">
+					<br>
+					<%= link_to edit_education_path(current_user), class: "pull-left" do %> 
+					<i class="glyphicon glyphicon-plus"></i>&nbspAdd Education
+					<% end %>
+				</div>
+			</div>
+			Members with a school on their profile get 7 times more profile views.
+		</div>
+	</div>
+
+	<div class="col-sm-4">
+		<div class="panel panel-body">
+			<div class="row">
+				<div class="col-sm-4">
+					<!-- Work icon -->
+					<%= image_tag 'work.png', :size => "70x70"%>
+				</div>
+				<div class="col-sm-8">
+					<br>
+					<%= link_to edit_work_path(current_user), class: "pull-left" do %> 
+					<i class="glyphicon glyphicon-plus"></i>&nbspAdd Work
+					<% end %>
+				</div>
+			</div>
+			People could be looking for someone with your experience.<br><br>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,33 @@
+<!-- APPOINTED WORKER -->
+<% if accepted_offer.nil? %>
+<ul class="list-group">
+	<li class="list-group-item list-group-item-success"><p2>PAY OFFER: &nbsp; <strong>€<%= task.pay_offer%> <%= task.is_pay_per_hour ? " per hour": "(Fixed pay)"%></strong></p2></li>
+</ul>
+This task has no worker yet.
+<br><br>
+
+<!-- if accepted offer is not nil, there is a worker for this task already -->
+<% else %>
+<ul class="list-group">
+	<li class="list-group-item list-group-item-danger"><del><p2>PAY OFFER: &nbsp; <strong>€<%= task.pay_offer%> <%= task.is_pay_per_hour ? " per hour": "(Fixed pay)"%></strong></p2></del></li>
+	<li class="list-group-item list-group-item-success"><p2>PAY AGREEMENT: &nbsp; <strong>€<%= accepted_offer.negotiate_pay %> <%= task.is_pay_per_hour ? " per hour": "(Fixed pay)"%></strong></p2> <br> <%= accepted_offer.comment_text %></li>
+</ul>
+
+<div class="row">
+	<div class="col-sm-4">
+		<% if task.client.picture? %>
+		<%= image_tag accepted_offer.user.picture_url, :size => "180x180", class: "img-thumbnail", :id => "prof_pic"  %>
+		<% else %>
+		<%= image_tag 'default.jpg', :size => "180x180", class: "img-thumbnail"  %>	
+		<% end %>
+	</div>
+
+	<div class="col-sm-8">
+		<h5><span class="glyphicon glyphicon-ok"></span> Accepted Worker: </h5> <h4><%= task.worker.fullname %></h4>
+
+	</div>
+</div>
+
+<br>
+
+<% end %>

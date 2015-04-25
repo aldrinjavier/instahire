@@ -1,0 +1,11 @@
+<span class="pull-right">
+	<div class="btn-group">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			Sort by&nbsp&nbsp<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" id= "sort_by" role="menu">
+			<li><%= sort_link(search, :pay_offer, 'Pay offer') %></li>
+			<li><%= sort_link(search, :created_at, 'Date') %></li>
+		</ul>
+	</div>
+</span>

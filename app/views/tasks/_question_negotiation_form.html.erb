@@ -1,0 +1,71 @@
+
+<!-- question and negotiation section -->
+<div class="col-md-12">
+
+	<!-- SWITCH BUTTONS -->
+	<!-- if client, response form will be hidden, else if worker, it will be shown -->
+	<% if !current_user.client? %>
+	<div class="row">
+		<div class="col-md-6 ">
+
+			<%= link_to "switch", task_path(:is_comment => "false"), class: "btn btn-success btn-lg", id: "switch-collapse", remote: true %>
+			<%= link_to "Ask a question", task_path(:is_comment => true), class: "btn btn-success btn-lg", id: "ask-question", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %> 
+			<%= link_to "Negotiate pay", task_path(:is_comment => false), class: "btn btn-success btn-lg pull-right", id: "negotiate", :data => { :toggle => 'collapse', :target => '#response-form' }, remote: true %>
+		</div>
+	</div>
+	<br><br>
+	<% end %> <!--// if !current_user.client?  -->
+
+
+	<!-- RESPONSE FORM: negotiation or question -->
+	<div id="response-form" class="collapse">
+		<%= simple_form_for ([task, Response.new]) do |f| %>
+		<%= f.input :is_comment, as: :hidden %>
+
+		<div class="row">
+
+			<!-- CURRENT USER'S DISPLAY PICTURE -->
+			<div class="col-md-2">
+				<% if current_user.picture? %>
+				<%= image_tag current_user.picture_url(:thumb), class: "img-thumbnail", :id => "prof_pic"  %>
+				<% else %>
+				<%= image_tag 'default.jpg', :size => "100x100", class: "img-thumbnail"  %>	
+				<% end %>
+			</div>
+
+			<!-- NEGOTIATION FORM -->
+			<div class="col-md-10">			
+				<div class="row" id="negotiate-field">	
+					<%= f.input :negotiate_pay, wrapper: :horizontal_input_group, label: false do %>
+					<span class="input-group-addon">€</span>
+					<%= f.input_field :negotiate_pay, as: :integer, class: "form-control", min: task.pay_offer, step: '1', value: task.pay_offer %>
+					<span class="input-group-addon">Euro</span>
+					<% end %>
+					<span class="glyphicon glyphicon-question-sign extra-negotiation-info"
+					data-toggle="popover" data-placement="left" data-original-title="Negotiate pay amount" data-content="You can only match the pay offer of the client or demand a pay increase. The pay type is only decided by the client. If you wish to change the pay type, you can make a request on ask a question form."></span>
+					<br>
+					<!-- the negotiation pay hint is changing dynamically -->
+					<p id="negotiation_pay_hint" class="help-block">#</p>
+				</div>
+
+				<span class="glyphicon glyphicon-question-sign extra-info pull-right"
+				data-toggle="popover" data-placement="left" data-original-title="Condition/ comment" data-content="You can include a comment or make a condition that comes together with your suggested ideal pay amount."></span>
+				<%= f.input :comment_text, as: :text, input_html: {rows: 3}, label: false %>
+
+				<p id="comment_text_hint"class="help-block"></p>
+
+				<div class="row"> 
+					<div class="col-md-4 col-md-offset-8">
+						<%= f.button :submit, id: "create_response_button" %>
+					</div>
+				</div>
+
+				<% end %><!--  negotiate form -->
+			</div>
+		</div>
+	</div>
+
+
+	<br>
+</div>
+<!--// question and negotiation section -->

@@ -1,18 +1,50 @@
 <%= content_tag "div", id: "response-comment-section#{@response.id}", class: "row response-comment-section" do %>
-<div class="col-md-6">
+
+<!-- SUBCOMMENTS -->
+<div class="col-md-12">
+	<hr>
 	<%= content_tag "div", id: "response_subcomments#{@response.id}" do %>
 	<%= render @subcomments %> 
 	<% end %>
+</div>
 
-	<%# only the client of this task and the worker who made this response can comment %>
-	<% if current_user?(@subcomment.response.user) || current_user?(@subcomment.response.task.client) %>
+<!-- only the client of this task and the worker who made this response can comment  -->
+<% if current_user?(@subcomment.response.user) || current_user?(@subcomment.response.task.client) %>
+
+<!-- SUBCOMMENT FORM DISPLAY PICTURE (CURRENT USER)-->
+<div class="col-md-2">
+	<% if current_user.picture? %>
+	<%= image_tag current_user.picture_url(:thumb), class: "img-thumbnail", :id => "prof_pic"  %>
+	<% else %>
+	<%= image_tag 'default.jpg', :size => "100x100", class: "img-thumbnail"  %>	
+	<% end %>
+</div>
+
+<!-- SUBCOMMENT FORM -->
+<div class="col-md-10">
+
 	<%= simple_form_for @subcomment, remote: true do |f| %>
+	<!-- subcomment text -->
 	<%= f.input :comment_text, label: false, as: :text, input_html: {rows: 1, :id => "subcomment_comment_text#{@response.id}", class: "subcomment_comment_text"} %>
+	<!-- hint -->
 	<p id="subcomment_text_hint<%= @response.id%>"class="help-block">enter at least 15 characters</p>
+
 	<%= f.input :response_id, as: :hidden %>
 
-	<%= f.button :submit, class: "create_buttonx", id: "create_buttonx#{@response.id}" %>
-	<%end%>
-	<%end%>
+	<!-- submit btton -->
+	<div class="row">
+		<div class="col-md-4 col-md-offset-8">
+			<%= f.button :submit, class: "create_buttonx", id: "create_buttonx#{@response.id}" %>
+		</div>
+	</div>
+
+	<%end%> 
+	<!--// subcomment form -->
+	
 </div>
+
 <%end%>
+<!--// if  -->
+
+<%end%>
+<!-- // context tag -->

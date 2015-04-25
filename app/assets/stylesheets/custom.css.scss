@@ -46,25 +46,41 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 1;
 }
 h1 {
-	font-size: 3em;
-	letter-spacing: -2px;
-	margin-bottom: 30px;
-	text-align: center;
+font-size: 2em;
+letter-spacing: -1px;
+font-weight: bold;
 }
 h2 {
-	font-size: 1.2em;
-	margin-top: 0px;
-	text-align: center;
-	color: #F8F8FF;
+font-size: 1.2em;
+margin-top: 0px;
+text-align: center;
+color: #F8F8FF;
 }
 h3 {
-	font-size: 1.4em;
-	letter-spacing: 1px;
-	font-weight: normal;
-	color: $gray-light;
-	margin-top: 7px;
-	margin-left: 15px;
+font-size: 1.5em;
+letter-spacing: 1px;
+font-weight: normal;
+color: $gray-light;
+margin-top: 7px;
+margin-left: 15px;
 }
+h4 {
+font-size: 1.8em;
+line-height:25px;
+}
+
+h5 {
+font-size: 1.2em;
+LINE-HEIGHT:20px;
+color: #666666;
+}
+
+hr
+{
+border: 1px solid #E6E6FA;
+}
+
+
 
 /*hr {
 margin-bottom: 20px;

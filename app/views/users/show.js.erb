@@ -1,0 +1,15 @@
+$('#skill_sections').html("<%= j render(:partial => 'users/skill_section', :locals => { skills: @skills }) %>")
+
+
+$('.article').readmore({
+	maxHeight: 80,
+	speed: 250,
+	moreLink: '<a href="#" class="read-more-link">Read more...</a>',
+	lessLink: '<a href="#">Read less</a>'
+
+});
+
+$('.article').readmore();
+
+
+

@@ -1,20 +1,36 @@
 <% provide(:title, "Log in") %>
-<h1>Log in</h1>
+<br>
+
 <div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<%= form_for(:session, url: login_path) do |f| %>
-		<%= f.label :email %>
-		<%= f.text_field :email %>
-		<%= f.label :password %>
-		<%= f.password_field :password %>
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-default main-panel">
 
-		<%= f.label :remember_me, class: "checkbox inline" %>
-		<%= f.check_box :remember_me %>
-		<span>Remember me on this computer</span>
-		
+			<div class="panel-heading widen-main-panel-heading">				
+				<h2 class="alignleft"><strong>LOG IN</strong></h2>	
+			</div>
 
-		<%= f.submit "Log in", class: "btn btn-primary" %>
-		<% end %>
-		
+			<%= simple_form_for :session, url: login_path, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |f| %>
+
+			<fieldset>
+				<div class="panel panel-default sub-panel">
+					<div class="inner-div-panel">
+						<%= f.input :email %>
+						<%= f.input :password %>
+						<span id= "login-remember">
+							<%= f.check_box :remember_me %>
+							<span><strong>Remember me</strong></span>
+						</span>
+					</div>
+				</div>
+			</fieldset>
+
+			<div class="row">
+				<div class="col-md-3 col-md-offset-9">
+					<%= f.button :submit, "Join Instahire", class: "btn btn-success btn-md submit-button" %>
+				</div>
+			</div>
+			<% end %>
+			
+		</div>
 	</div>
 </div>

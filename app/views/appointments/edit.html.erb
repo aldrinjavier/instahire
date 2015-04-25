@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-default main-panel">
+
+			<div class="panel-heading widen-main-panel-heading">
+				<h2 class="alignleft"><strong>Edit appointment</strong></h2>
+			</div> 
+			<%# Form for%>
+			<%= simple_form_for @appointment, html: {class: 'form-horizontal'}, wrapper: :horizontal_input_group do |b| %>
+
+
+			<div class="panel panel-default sub-panel">
+				
+				<div class="inner-div-panel">
+					<%= field_set_tag ''.html_safe, id: "date_time" do %>
+					
+
+					<%= b.input :start_date, label: "Start date", wrapper: :horizontal_input_group do %>
+					<%= b.input_field :start_date, placeholder: 'Set ', class: "form-control date start" %><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					<% end %>
+
+					<%= b.input :start_time, label: "Start time", wrapper: :horizontal_input_group do %>
+					<%= b.input_field :start_time, placeholder: 'Starting time at', as: :string, class: "form-control time start" %><span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					<% end %>
+
+					<!-- this attribute will be used to identify the id in validation -->
+					<%= b.input :appointment_id, as: :hidden, :input_html => { :value => "#{@appointment.id}" } %>
+
+					<%= b.input :is_pay_per_hour, as: :hidden, :input_html => { :value => "#{@task.is_pay_per_hour}" } %>
+
+					<span id= "is_task_pay_per_hour"><%= @task.is_pay_per_hour %></span>
+					<%= b.input :duration, label: "Duration", wrapper: :horizontal_input_group  do %>
+					<%= b.input_field :duration, placeholder: 'Duration', as: :integer, class: "form-control", min: "1", max: "8"%>
+					<span class="input-group-addon" id="hour-addon">Hour(s)</span>
+
+					<% end %>
+					<% end %>
+
+					
+				</div>
+			</div>
+			
+			<%# END: Task appointment%>
+
+			<%# Submit button%>
+			<div class="row">
+				<div class="col-md-3 col-md-offset-9">
+					<%= b.button :submit %>
+				</div>
+			</div>
+			<%# END: Submit button%>
+			<% end %>
+			<%# END: Form for%>
+
+		</div>
+	</div>
+</div>

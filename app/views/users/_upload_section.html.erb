@@ -1,0 +1,39 @@
+
+<div class= "upload-section">
+
+	<!-- picture cache -->
+	<%= f.input :picture_cache, as: :hidden %>
+
+	<!-- Row -->
+	<div class="row">
+
+
+		<!-- col 3 -->
+		<div class="col-md-3">
+			<!-- display picture -->
+			<% if user.picture? %>
+
+
+			<%= image_tag user.picture_url(:thumb), class: "img-thumbnail prof_pic"  %>
+			<% else %>
+			<%= image_tag 'default.jpg', :size => "100x100", class: "img-thumbnail prof_pic"  %>
+			<br><br>
+			<% end %>
+		</div>
+		<!--// col 3 -->
+		<!--// display picture -->
+
+		
+		<span id="selected_a"><label>Set a profile picture</label></span>
+		<!-- remove photo check box -->
+		<%= f.input :remove_picture, as: :hidden, label: "Remove currently selected display picture" %>
+
+		 <a href="#" id="delete_pic" >Delete picture</a>
+
+		<!-- upload file input -->
+		<div class="picture-upload">
+			<%= f.input :picture, label: false %>	
+		</div>			
+	</div>
+	<!--// row -->
+</div>

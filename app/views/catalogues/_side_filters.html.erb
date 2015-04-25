@@ -1,0 +1,94 @@
+<%#******************SIDE FILTERS******************* %>
+
+
+
+	<!-- SEARCH FORM -->
+	<span id="sql_search"><%= search.result.to_sql%></span>
+	<%= search_form_for search, :defaults => {:required => false}, url: url_for(controller: 'catalogues', action: 'index') do |f| %>
+
+	<%#******************Category filter******************* %>
+	<div class="panel panel-default">
+		<div class="panel-heading text-muted">Category <i class="fa fa-link fa-1x"></i>
+		</div>
+		<div class="panel-body">
+
+			<!-- CATEGORY RETURN BUTTON -->
+			<button style="width:100%" type="button" class="btn btn-default" aria-label="Left Align" id="all-categories"> << All Categories</button>
+
+			<!-- CATEGORY DROP DOWN -->
+			<%= f.input :subcategory_category_id_eq, label: "Category", collection: Category.order(:name), label_method: :task_name_and_count, value_method: :id, include_blank: "All categories "%>
+
+			<!-- SUBCATEGORY RETURN BUTTON -->
+			<button style="width:100%" type="button" class="btn btn-default" aria-label="Left Align" id="all-subcategories">  </button> 
+
+			<!-- SUBCATEGORY DROPDOWN -->
+			<%= f.input :subcategory_id_eq, label: "Subcategory", collection: Category.order(:name), label_method: :task_name_and_count, as: :grouped_select, group_method: :subcategories%>
+
+			<!-- SUBCATEGORY SELECTED ITEM -->
+			<div style="margin-top:15px" class="well well-sm text-center" id="subcategory-item" ></div>
+		</div>
+	</div>
+
+
+	<%#******************Location filter******************* %>
+	<div class="panel panel-default">
+		<div class="panel-heading text-muted">Location <i class="fa fa-link fa-1x"></i>
+		</div>
+		<div class="panel-body">
+			
+			<!-- COUNTY RETURN BUTTON -->
+			<button style="width:100%" type="button" class="btn btn-default" aria-label="Left Align" id="all-counties"> << All Counties</button>
+
+			<!-- COUNTY DROP DOWN -->
+			<%= f.input :area_county_id_eq, label: "County", collection: County.order(:name), label_method: :task_name_and_count, value_method: :id, include_blank: "All counties "%>
+
+			<!-- AREA RETURN BUTTON -->
+			<button style="width:100%" type="button" class="btn btn-default" aria-label="Left Align" id="all-areas">  </button> 
+
+			<!-- AREA DROP DOWN BUTTON -->
+			<%= f.input :area_id_eq, label: "Area", collection: County.order(:name), as: :grouped_select, label_method: :task_name_and_count, group_method: :areas %>
+
+			<!-- AREA SELECTED ITEM -->
+			<div style="margin-top:15px" class="well well-sm text-center" id="area-item" ></div>
+
+		</div>
+	</div>
+
+
+	<%#******************Pay filter******************* %>
+	<div class="panel panel-default">
+		<div class="panel-heading text-muted">Pay offer <i class="fa fa-link fa-1x"></i></div>
+		<div class="panel-body">
+			<button style="width:100%" type="button" class="btn btn-default" aria-label="Left Align" id="all-pay-types"> << All pay types</button>
+
+			<!-- PAY TYPE DROPDOWN -->
+			<%= f.input :is_pay_per_hour_eq_any, as: :select, label: "Pay type", :collection => [['Fixed pay',false],['Pay per hour', true]], label_method: lambda { |t| "#{t[0]} (#{@search.result.to_a.count{|x| x.is_pay_per_hour == t[1]}})"}, include_blank: "All pay type" %>
+
+			<!-- MINIMUM FIELD -->
+			<div class="pay-type-label-catalogue" id="minimum-label">Minimum</div>
+			<div class="test">	
+				<%= f.input :pay_offer_gteq, label: false, wrapper: :horizontal_input_group do %>
+				<span class="input-group-addon">€</span>
+				<%= f.input_field :pay_offer_gteq, as: :integer, class: "form-control", min: "10" %>	
+				<% end %>
+			</div>
+			<br><br>
+
+			<!-- MAXIMUM FIELD -->
+			<div class="pay-type-label-catalogue" id="maximum-label">Maximum</div>
+			<div class="test">
+				<%= f.input :pay_offer_lteq, label: false, wrapper: :horizontal_input_group do %>
+				<span class="input-group-addon">€</span>
+				<%= f.input_field :pay_offer_lteq, as: :integer, class: "form-control", min: "10" %>	
+				<% end %>
+			</div>
+
+			<!-- REFRESH BUTTON -->
+			<button type="button" class="btn btn-default btn-xl pull-right" aria-label="Left Align" id="refresh-button">
+				<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbspRefresh
+			</button>
+			<% end %>
+			
+		</div>
+	</div>
+

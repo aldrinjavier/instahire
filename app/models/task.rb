@@ -13,7 +13,7 @@ class Task < ActiveRecord::Base
 	delegate :category, :to => :subcategory
 	has_many :appointments, :dependent => :destroy
 	has_many :responses, dependent: :destroy
-	accepts_nested_attributes_for :appointments
+	accepts_nested_attributes_for :appointments, allow_destroy: true
 
 	#VALIDATIONS
 	#category validation
@@ -76,18 +76,5 @@ class Task < ActiveRecord::Base
 	end
 
 
-		# validate :is_date_nil
 
-	# def is_date_nil
-	# 	if @start_date.blank? && @end_date.blank? && @start_time.present? && @end_time.present?
-	# 		errors.add(:start_date,  "Can't leave blank")
-	# 		errors.add(:end_date,  "Can't leave blank")
-	# 	end
-
-	# 	if @start_time.blank? && @end_time.blank? && @start_date.present? && @end_date.present?
-	# 		errors.add(:start_time,  "Can't leave blank")
-	# 		errors.add(:end_time,  "Can't leave blank")
-	# 	end
-	# end
-	
 end

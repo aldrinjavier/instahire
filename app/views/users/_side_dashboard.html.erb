@@ -1,0 +1,59 @@
+<div class="col-sm-3">
+
+	<!-- Display picture -->
+	<% if user.picture? %>
+	<%= image_tag user.picture.url, class: "img-thumbnail" if user.picture? %><br><br>
+	<% else %>
+	<%= image_tag 'default.jpg', :size => "300x300", class: "img-thumbnail"  %>
+	<br><br>
+	<% end %>
+
+	<!-- User's basic information -->
+	<div class="panel panel-default">
+		<!-- Panel body -->
+		<div class="panel-body">
+			<!-- date joined -->
+			<i class="glyphicon glyphicon-time">&nbsp</i><%= "Joined on #{@user.created_at.strftime("%d %B, %Y")}" %>  <br><br>
+			<!-- user role -->
+			<i class="glyphicon glyphicon-user">&nbsp</i><%= user.role %> <br><br>
+			<!-- location -->
+			<i class="glyphicon glyphicon-map-marker">&nbsp</i><%= user.area.present? ? user.location : "Undefined" %>
+		</div><!--// Panel body-->
+	</div><!--// Panel default-->
+
+
+	<!-- ONLY APPLIES FOR WORKER -->
+	<% if user.offered_services.present? || user.educations.present? || user.works.present?%>
+	<!-- Show this panel containing to add  education, or add work, or add offered_service, only if: -->
+	<% if user.offered_services.blank? || user.educations.blank? || user.works.blank? %>
+	<div class="panel panel-default">
+		<!-- Panel body -->
+		<div class="panel-body">
+
+			<% if user.educations.blank? %>
+			<%= image_tag 'education.png', :size => "70x70"%>
+			<%= link_to edit_education_path(current_user) do %> 
+			<i class="glyphicon glyphicon-plus"></i>&nbspAdd Education
+			<% end %><br><br>
+			<% end %>
+
+			<% if user.works.blank? %>
+			<%= image_tag 'work.png', :size => "70x70"%>
+			<%= link_to edit_work_path(current_user) do %> 
+			<i class="glyphicon glyphicon-plus"></i>&nbspAdd Experience
+			<% end %><br><br>
+			<% end %>
+
+			<% if user.offered_services.blank? %>
+			<%= image_tag 'skill.png', :size => "70x70"%>
+			<%= link_to edit_offered_service_path(current_user) do %> 
+			<i class="glyphicon glyphicon-plus"></i>&nbspAdd Skill
+			<% end %>
+			<% end %>
+
+		</div><!--// Panel body-->
+	</div><!--// Panel default-->
+	<% end %>
+	<% end %>
+
+</div><!--// Col 3-->

@@ -1,0 +1,32 @@
+<% educations.each do |e| %>
+
+<!-- row -->
+<div class="row">
+
+	<!-- SCHOOL NAME -->
+	<div class="col-md-12">
+		<h5>School Name:&nbsp; </h5> 
+		<h4 ><%= e.school_name.split.map(&:capitalize).join(' ') %></h4> 
+
+	</div>
+
+	<!-- QUALIFICATION -->
+	<div class="col-md-12">
+		<h5>Qualification:&nbsp; </h5> 
+		<h4 ><%= e.degree %></h4> 
+	</div>
+
+	<!-- TIME PERIOD -->
+	<div class="col-md-12">
+		<h5>Time period: </h5> 
+		<h4><%= e.year_started.strftime("%B %Y") %> - <%= e.year_finished.strftime("%B %Y") %> 
+			<%= time_period(e.year_started, e.year_finished) %> 
+		</h4>
+	</div>
+
+	<hr>
+
+</div>
+<!--// row -->
+
+<% end %>

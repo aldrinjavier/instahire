@@ -1,5 +1,6 @@
 class WorkerStepsController < ApplicationController
 	before_action :worker_user, only: [:show, :update]
+	
 
 	include Wicked::Wizard
 
@@ -17,6 +18,7 @@ class WorkerStepsController < ApplicationController
 
 		when :education_experience
 			@user.educations.build if @user.educations.count < 1
+			@class_name = "width: 50%"
 
 		when :work_experience
 			@user.works.build if @user.works.count < 1

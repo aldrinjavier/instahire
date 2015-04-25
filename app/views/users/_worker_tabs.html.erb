@@ -1,0 +1,44 @@
+	<!-- TABS -->
+	<ul class="nav nav-tabs nav-justified" id="myTab">
+
+		<!-- Profile tab -->
+		<li class="<%= 'active' if params[:tab] == 'profile' || !params[:tab] %>">
+			<a href="#profile" data-toggle="tab">Profile</a>
+		</li>
+
+		<!-- Request tab -->
+		<li>
+			<a href="#requests" data-toggle="tab">Task Requests <%= @user.task_posts.count %> </a>
+		</li>
+
+		<!-- Appointment tab -->
+		<li class="dropdown">
+			<a href="#" data-toggle="dropdown">Appointments<span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#tab4primary" data-toggle="tab">Upcoming</a></li>
+				<li><a href="#tab5primary" data-toggle="tab">In Progress</a></li>
+				<li><a href="#tab5primary" data-toggle="tab">Completed</a></li>
+				<li><a href="#tab5primary" data-toggle="tab">Cancelled</a></li>
+			</ul>
+		</li>
+	</ul>
+	<!--// Tabs -->
+
+
+	<!-- TAB CONTENTS -->
+	<div class="tab-content">
+
+		<!-- PROFILE CONTENT (this tab will be active on page load) --> 
+		<div class="<%= if (params[:tab] == 'profile' || !params[:tab]) then 'tab-pane active'  else 'tab-pane' end %>" id="profile">
+			<%= (render 'tab_worker_profile') %>
+			<hr>
+		</div>
+
+		<!-- Requests content -->
+		<div class="tab-pane" id="requests">
+			ssdsd
+		</div>
+		<!--// Requests content -->
+
+	</div>
+		<!--// Tab contents -->

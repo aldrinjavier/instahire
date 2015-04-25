@@ -1,0 +1,13 @@
+<!-- PROFILE TAB for workers -->
+<br><br>
+
+<!-- display this in profile tab, if skill(service), education and work are blank -->
+<% if @user.offered_services.blank? && @user.educations.blank? && @user.works.blank?%>
+<%= render 'empty_profile_sections', user: @user %>
+<% end %>
+
+<!-- partial: profile sections. ie: education, skill, work -->
+<%= render 'display_profile_sections', user: @user %>
+
+
+

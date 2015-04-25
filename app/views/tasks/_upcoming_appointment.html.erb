@@ -1,0 +1,165 @@
+<div class="panel panel-default">
+
+	<!-- HEADING -->
+	<div class="panel-heading">
+
+		<h2 class ="pull-left"><strong><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;Upcoming Appointment</strong></h2>
+
+		<!-- edit link -->
+		<!-- it will be only shown to the client of this task -->
+		<% if current_user?(task.client) %>
+		<%= link_to edit_appointment_path(task.appointments.first.id), class: "pull-right edit-appointment" do %> 
+		<i class="glyphicon glyphicon-pencil"></i>&nbsp; Edit
+		<% end %>
+		<% end %>
+
+	</div>
+	
+	<div class="panel-body">
+
+		<!-- if fixed pay -->
+
+		<% if !task.is_pay_per_hour %>
+
+		<div class="row">
+			<div class="col-sm-5">
+				<h5>Date:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%d %B, %Y")%></h4>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>Day:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%A")%></h4>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>Start time:</h5>
+				
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%I:%M %p")%></h4>
+			</div>
+
+		</div>
+
+		<!-- if pay per hour -->
+
+		<% else %>
+
+		<!-- if start date and end date is the same -->
+
+		<% if task.appointments.first.start_at.day == task.appointments.first.end_at.day %>
+
+		<div class="row">
+			<div class="col-sm-5">
+				<h5>Date:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%d %B, %Y")%></h4>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>Day:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%A")%></h4>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>Start time:</h5>
+				
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%I:%M %p")%></h4>
+			</div>
+
+			<% if task.is_pay_per_hour %>
+			<div class="col-sm-5">
+				<h5>End time:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.end_at.strftime("%I:%M %p")%></h4>
+			</div>
+			<% end%>		
+		</div>
+
+		<% else %>
+
+		<!-- if start date and end date is different -->
+
+		<div class="row">
+			<div class="col-sm-5">
+				<h5>Start Date:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%d %B, %Y")%></h4>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>Day:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%A")%></h4>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>Start time:</h5>
+				
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.start_at.strftime("%I:%M %p")%></h4>
+			</div>
+
+			<div class="col-sm-12">
+				<hr>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>End Date:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.end_at.strftime("%d %B, %Y")%></h4>
+			</div>
+
+			<div class="col-sm-5">
+				<h5>Day:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.end_at.strftime("%A")%></h4>
+			</div>
+
+
+			<% if task.is_pay_per_hour %>
+			<div class="col-sm-5">
+				<h5>End time:</h5>
+			</div>
+
+			<div class="col-sm-7">
+				<h4><%= task.appointments.first.end_at.strftime("%I:%M %p")%></h4>
+			</div>
+			<% end%>		
+		</div>
+
+
+		<% end %> <!-- end if else same day-->
+
+		<% end %> <!-- end if else pay_per_hour-->
+
+	</div>
+</div>

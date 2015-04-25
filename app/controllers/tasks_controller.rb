@@ -10,17 +10,38 @@ class TasksController < ApplicationController
 	def create
 		@task = current_user.task_posts.build(task_params)
 		if @task.save
-			flash[:success] = "Micropost created!"
-			redirect_to @current_user
+			flash[:success] = "Task created!"
+			redirect_to @task
 		else
 			render 'new'
 		end
 	end
 
+	def edit
+
+		@task = Task.find(params[:id])
+		@task.county_id = @task.county.id
+		@task.category_id = @task.category.id
+
+	end
+
+	def update
+		@task = Task.find(params[:id])
+
+		if @task.update_attributes(task_params)
+			flash[:success] = "Task updated"
+			redirect_to @task
+		else
+			render 'edit'
+		end
+	end
+
 	def show
 		@task = Task.find(params[:id])
-		# @response = @task.responses.build if logged_in?
 		@responses = @task.responses.all
+		@current_appointment = @task.appointments.first
+		@expiry_time = @current_appointment.start_at - 3.hours
+		@current_time = Time.zone.now + 1.hours
 
 		@responses.each do |r|
 			if r.is_accepted == true
@@ -33,7 +54,8 @@ class TasksController < ApplicationController
 
 	private
 	def task_params
-		params.require(:task).permit(:category_id, :subcategory_id, :title, :description, :pay_offer, :is_pay_per_hour, :county_id, :area_id, appointments_attributes: [:id, :start_date, :start_time, :duration])
+		params.require(:task).permit(:category_id, :subcategory_id, :title, :description, :pay_offer, :is_pay_per_hour, :county_id, :area_id, 
+			appointments_attributes: [:id, :start_date, :start_time, :duration] )
 	end
 
 	def logged_in_user_worker

@@ -22,6 +22,7 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require data-confirm-modal
+//= require readmore
 //= require_tree .
 
 

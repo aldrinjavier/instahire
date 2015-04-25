@@ -1,6 +1,7 @@
 class Subcategory < ActiveRecord::Base
 	belongs_to :category
 	has_many :tasks
+	has_many :users
 
 	def task_name_and_count
 		tasks = Task.current.result.to_a

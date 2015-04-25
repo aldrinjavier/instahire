@@ -9,14 +9,8 @@ class User < ActiveRecord::Base
 	belongs_to :area
 	delegate :county, :to => :area
 
-	# has_many :client_relationships, class_name: "Task", foreign_key: "client_id", dependent: :destroy
-	# has_many :worker_relationships, class_name: "Task", foreign_key: "worker_id", dependent: :destroy
-
 	has_many :task_posts, class_name: "Task", foreign_key: "client_id", dependent: :destroy
 	has_many :task_todos, class_name: "Task", foreign_key: "worker_id", dependent: :destroy
-
-	# has_many :worker_tasks, through: :client_relationships, source: :worker
-	# has_many :client_tasks, through: :worker_relationships, source: :client
 
 	has_many :workers, through: :task_posts, source: :worker
 	has_many :clients, through: :task_todos, source: :client
@@ -51,11 +45,16 @@ class User < ActiveRecord::Base
 	# Location validations
 	# validates :county_id, presence: true, :if => lambda { self.created_at?}
 	# validates :area_id, presence: true, :if => lambda { |o| o.county_id.present?}
+
+	# Personal bio validation
+	validates :personal_bio, length: {maximum: 50}
+
 	
-# , length: {maximum: 255},
-	# Returns a random token.
+
 	# Class method
 
+
+	#used in select dropdown is_pay_per_hour input
 	HASH_NAME = {
 		"Pay per hour" => "Pay per hour",
 		"Fixed pay" => "Fixed pay",
@@ -63,7 +62,7 @@ class User < ActiveRecord::Base
 
 	
 	def fullname
-		"#{first_name} #{last_name}"
+		"#{first_name} #{last_name}".titleize
 	end
 
 	def role

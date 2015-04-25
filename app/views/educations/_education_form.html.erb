@@ -1,13 +1,43 @@
 <fieldset>
+	<%= link_to "", '#', class: "remove_fields glyphicon glyphicon glyphicon-remove delete-icon" %>
 	<div class="panel panel-default sub-panel">
 		<div class="inner-div-panel">
-			<%= f.input :school_name %>
-			<%= f.input :degree %>
-			<%= f.input :year_started, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' } %>
-			<%= f.input :year_finished, discard_day: true, order: [:month, :year], include_blank: true, default: nil, :input_html => { :class => 'profile-date' } %>
-			<%#<%= f.input :_destroy, as: :boolean %>
-			<%= f.input :_destroy, as: :hidden %>
-			<%= link_to "remove", '#', class: "remove_fields" %>
+			
+			<!-- SCHOOL NAME -->
+			<div class="required-field-block">
+				<%= f.input :school_name, placeholder: "Enter the complete name of your school", :required => false %>
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+
+			<!-- DEGREE -->
+			<div class="required-field-block">
+				<%= f.input :degree, label: "Qualification", placeholder: "MSc, BSc, PhD, Highscool Diploma, etc", :required => false %>
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+
+			<!-- YEAR STARTED -->
+			<div class="required-field-block">
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+			<%= f.input :year_started, as: :date, label: "Date started", start_year: Date.today.year, end_year: Date.today.year - 100, discard_day: true, order: [:month, :year], include_blank: true, :input_html => { :class => 'profile-date' }, :required => false, prompt: "Please select" %>
+			
+			<!-- YEAR ENDED -->
+			<div class="required-field-block">
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+			<%= f.input :year_finished, as: :date, label: "Date finished", start_year: Date.today.year + 7, end_year: Date.today.year - 100, discard_day: true, order: [:month, :year], include_blank: true, :input_html => { :class => 'profile-date' }, hint: "Or expected graduation month and year.", :required => false %>  
+			
+
+			<%= f.input :_destroy, as: :hidden%>	
+
 		</div>
 	</div>
 </fieldset>

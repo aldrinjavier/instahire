@@ -1,0 +1,33 @@
+<fieldset>
+	<%= link_to "", '#', class: "remove_fields glyphicon glyphicon glyphicon-remove delete-icon" %>
+	<div class="panel panel-default sub-panel">
+		<div class="inner-div-panel">
+
+			<!-- CATEGORY -->
+			<div class="required-field-block">
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+			<%= f.input :subcategory_id, collection: Category.order(:name), as: :grouped_select, group_method: :subcategories, label: "Category", :prompt => "Select category for your skill", :required => false %>
+
+			<!-- SKILL NAME/ OFFERED SERVICE -->
+			<div class="required-field-block">
+				<%= f.input :title, label: "Skill Name", placeholder: "Name your skill", :required => false %>
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+
+			<!-- SERVICE/ SKILL DESCRIPTION -->
+			<div class="required-field-block">	
+				<%= f.input :service_description, label: "Description", input_html: {rows: 8}, placeholder: "Describe your skill in detail", :required => false %>
+				<div class="required-icon">
+					<div class="text">*</div>
+				</div>
+			</div>
+
+			<%= f.input :_destroy, as: :hidden%>
+		</div>
+	</div>
+</fieldset>

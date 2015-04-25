@@ -329,8 +329,16 @@ function f_process_category_dropdown(){
 	if(min != "" && max != ""){
 		if(min == max){
 			filter_result_builder = filter_result_builder + " for €" + min;
-		}else{
+		}
+		else{
 			filter_result_builder = filter_result_builder + " between €" + min + " and €" + max;
+		}
+	}
+	if((min == "" && max != "") || (min != "" && max == "") ){
+		if(min != ""){
+			filter_result_builder = filter_result_builder + "€ " + min +" and above";
+		}else{
+			filter_result_builder = filter_result_builder + "€ " + max +" and under";
 		}
 	}
 	if(search_text != ""){
@@ -342,12 +350,12 @@ function f_process_category_dropdown(){
 
 	//set min and max field to 10, default min value is 10 (so no need to set)
 	if(remove_count($("#q_is_pay_per_hour_eq_any :selected").text()) == "Pay per hour"){
-		if($('#q_pay_offer_gteq').val() == ""){
-			$('#q_pay_offer_gteq').val(10);
-		}
-		if($('#q_pay_offer_lteq').val() == ""){
-			$('#q_pay_offer_lteq').val(10);
-		}
+		// if($('#q_pay_offer_gteq').val() == ""){
+		// 	$('#q_pay_offer_gteq').val(10);
+		// }
+		// if($('#q_pay_offer_lteq').val() == ""){
+		// 	$('#q_pay_offer_lteq').val(10);
+		// }
 		//change text in the label
 		$("#minimum-label").text("Minimum pay per hour");
 		$("#maximum-label").text("Maximum pay per hour");
@@ -355,24 +363,25 @@ function f_process_category_dropdown(){
 	}else if(remove_count($("#q_is_pay_per_hour_eq_any :selected").text()) == "Fixed pay"){
 		$('#q_pay_offer_gteq').attr({"min" : 20});
 		$('#q_pay_offer_lteq').attr({"min" : 20});
-		if($('#q_pay_offer_gteq').val() == ""){
-			$('#q_pay_offer_gteq').val(20);
-		}
-		if($('#q_pay_offer_lteq').val() == ""){
-			$('#q_pay_offer_lteq').val(20);
-		}
+		// if($('#q_pay_offer_gteq').val() == ""){
+		// 	$('#q_pay_offer_gteq').val(20);
+		// }
+		// if($('#q_pay_offer_lteq').val() == ""){
+		// 	$('#q_pay_offer_lteq').val(20);
+		// }
 		//change text in the label
 		$("#minimum-label").text("Minimum fixed pay");
 		$("#maximum-label").text("Maximum fixed pay");
 		//set min and max field to 10, default min value is 10 (no need to set)
-	}else{ 
-		if($('#q_pay_offer_gteq').val() == ""){
-			$('#q_pay_offer_gteq').val(10);
-		}
-		if($('#q_pay_offer_lteq').val() == ""){
-			$('#q_pay_offer_lteq').val(10);
-		}
 	}
+	// else{ 
+	// 	if($('#q_pay_offer_gteq').val() == ""){
+	// 		$('#q_pay_offer_gteq').val(10);
+	// 	}
+	// 	if($('#q_pay_offer_lteq').val() == ""){
+	// 		$('#q_pay_offer_lteq').val(10);
+	// 	}
+	// }
 	//restrict min field from inputting value greater than value in max field
 	$('#q_pay_offer_gteq').on('change', function(){
 		if(parseInt($(this).val()) > parseInt($('#q_pay_offer_lteq').val()) ){

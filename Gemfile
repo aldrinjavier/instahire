@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+
+gem 'readmorejs-rails'
+gem 'bullet', group: :development
 gem 'rmagick'
 gem 'carrierwave', '0.10.0'
 gem 'mini_magick', '3.8.0'
